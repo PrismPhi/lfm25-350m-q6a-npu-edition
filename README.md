@@ -19,6 +19,7 @@ This tree is published on [GitHub](https://github.com/PrismPhi/lfm25-350m-q6a-np
 | resident server RSS | 758 -> 813 MiB | before/after final API sample |
 | power | unmeasured | no world-readable telemetry; thermal proxy only |
 | fresh install | 62.2 s | Q6A; local assets; through EPContext generation and smoke |
+| public URL fresh install | 126.9 s | GitHub clone, 11 HF assets, through EPContext generation and smoke |
 | idempotent rerun | 5.5 s | reused 11 assets and both contexts |
 
 The low end of API prefill occurs because the first partial chunk for a short prompt uses the decode path. TTFT for the corresponding task is 0.31 s, so the actual interactive wait is 0.31 s.

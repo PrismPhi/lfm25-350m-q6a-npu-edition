@@ -18,6 +18,21 @@
     "chunk_qnn_only": true,
     "decode_qnn_only": true
   },
+  "public_url_install": {
+    "elapsed_s": 126.87625559099979,
+    "git_commit": "289829fb523d80938d77499b286a3c94dc6e7fad",
+    "hf_revision": "e1eaf4d9194044e923857a4265f85ddd297fc077",
+    "assets_installed": 11,
+    "chunk_context_status": "generated",
+    "decode_context_status": "generated",
+    "chunk_qnn_only": true,
+    "decode_qnn_only": true,
+    "normal_text": "Tokyo",
+    "json_text": "{\"answer\":\"Japan\"}",
+    "fallback_disabled": true,
+    "no_sudo_or_root": true,
+    "pc_archive_sha256": "63722440511def6bfa8797e15dd2832ea01075d7891bf80cc5205553ca105aec"
+  },
   "tested_stack": {
     "python": "3.12.3",
     "onnx": "1.22.0",

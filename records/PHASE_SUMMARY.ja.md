@@ -13,7 +13,7 @@
 | V1.9 | 事後range統一をPCで否定 | scale統一だけでは品質維持不可 |
 | V1.10 | 校正時group-maxをPCで実証 | QNN partition topologyは未修復 |
 | Public Part 0 | chunk32 296.33 tok/sを実証 | handoff失敗で不採用 |
-| Public install | fresh 62.2 s、rerun 5.5 s | QNN環境は利用者の前提条件 |
+| Public install | local fresh 62.2 s、public URL fresh 126.9 s、rerun 5.5 s | QNN環境は利用者の前提条件 |
 
 ## 採用ヘッドライン
 
