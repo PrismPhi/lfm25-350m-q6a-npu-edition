@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "fresh_install": {
+    "elapsed_s": 62.23989035499835,
+    "assets_installed": 11,
+    "chunk_context_status": "generated",
+    "decode_context_status": "generated",
+    "chunk_qnn_only": true,
+    "decode_qnn_only": true,
+    "normal_text": "Tokyo",
+    "json_text": "{\"answer\":\"Japan\"}"
+  },
+  "idempotent_rerun": {
+    "elapsed_s": 5.542571821002639,
+    "assets_reused": 11,
+    "chunk_context_status": "reused",
+    "decode_context_status": "reused",
+    "chunk_qnn_only": true,
+    "decode_qnn_only": true
+  },
+  "tested_stack": {
+    "python": "3.12.3",
+    "onnx": "1.22.0",
+    "onnxruntime": "1.27.0",
+    "tokenizers": "0.23.1",
+    "provider": "QNNExecutionProvider / HTP",
+    "fallback_disabled": true
+  },
+  "pc_archive_sha256": "c297c63be1b6097b6d6fda8f6abe06177d3f92bcea128be9b1db012c314b70f1"
+}

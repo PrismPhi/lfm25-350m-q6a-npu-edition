@@ -1,0 +1,35 @@
+# Model and generated runtime artifacts
+*.onnx
+*.bin
+*.gguf
+*.npy
+*.npz
+*.safetensors
+*.data
+
+# Python and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local runtime state and logs
+state/
+logs/
+*.log
+*.pid
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*secret*
+*credential*
+*.pem
+*.key
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

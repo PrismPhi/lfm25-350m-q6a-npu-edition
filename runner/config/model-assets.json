@@ -1,0 +1,64 @@
+{
+  "files": [
+    {
+      "path": "MODEL_LICENSE",
+      "sha256": "4d28ca14dedc0b3d0fcc2b3339f0e79931faa33874f3d24f522183a8fc70068c",
+      "size": 10574
+    },
+    {
+      "path": "host/embedding_int8_rowwise/metadata.json",
+      "sha256": "22b9adb9729d6cec2e863f3cd486da59b900c217afcb45fbb287b55f05cb662e",
+      "size": 321
+    },
+    {
+      "path": "host/embedding_int8_rowwise/model_embed_tokens_weight_rowwise_int8.npy",
+      "sha256": "a838181b35524e07e2076f06efd4fc332a5abdbb8c3adab14b642bb870a2d412",
+      "size": 67108992
+    },
+    {
+      "path": "host/embedding_int8_rowwise/model_embed_tokens_weight_rowwise_scale.npy",
+      "sha256": "b9b3cc87c44b2e6b56fba1dd1993380608fdf4e20dc66513e0032f336e9549ca",
+      "size": 262272
+    },
+    {
+      "path": "host/rope_cache.npz",
+      "sha256": "1560bd9a0f61d85dbf90167b8537d899574274605ffb11c13c5be73c6294a473",
+      "size": 32768522
+    },
+    {
+      "path": "qdq/chunk16_a16w8_qdq.onnx",
+      "sha256": "87eb54d912b66e9dcad837ae488b8ca9bd6141586e625891c250efbf0bfa502a",
+      "size": 361612006
+    },
+    {
+      "path": "qdq/decode_a16w8_qdq.onnx",
+      "sha256": "ba6d71e2124d2a61b37e3afe7f7b1af5b8cb2b4470b65c469124c7f3f2f6d8bc",
+      "size": 355570472
+    },
+    {
+      "path": "tokenizer/chat_template.jinja",
+      "sha256": "013eed60546434b6967e3483153d8c5c37abcb1d667f8b1f914683f2a9411531",
+      "size": 2553
+    },
+    {
+      "path": "tokenizer/generation_config.json",
+      "sha256": "94bfac0e1c207691baf4e172389a8efb114f8b60eb3a5c07a2f418aefa8f8bb6",
+      "size": 136
+    },
+    {
+      "path": "tokenizer/tokenizer.json",
+      "sha256": "29d43b4be8e8a896fefd7cd836ca6d6b4eedd249f823866ce0453b368e646f49",
+      "size": 3297793
+    },
+    {
+      "path": "tokenizer/tokenizer_config.json",
+      "sha256": "95c85d0860d06c9529345f386004e8e67743375b15c5d39e9f46427d8977577b",
+      "size": 3269
+    }
+  ],
+  "license": "LFM Open License v1.0",
+  "model_id": "lfm2.5-350m-qnn-ctx2048",
+  "modified_file_notice": "QDQ ONNX, rowwise-int8 embedding and RoPE cache files are modified or mechanically transformed derivatives.",
+  "schema_version": 1,
+  "source_model": "LiquidAI/LFM2.5-350M"
+}

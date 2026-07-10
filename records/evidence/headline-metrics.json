@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "active_configuration": "V1.8b chunk16 + slim decode, ctx2048",
+  "api_tasks": {
+    "prefill_tok_s_range": [33.87, 143.53],
+    "decode_tok_s_range": [17.00, 17.60],
+    "ttft_s_range": [0.31, 1.03],
+    "long_japanese_completion_tokens": 442,
+    "strict_json_valid": true,
+    "server_rss_mib_before_after": [758, 813]
+  },
+  "controlled_comparison": {
+    "hybrid_qnn_decode_tok_s_mean": 16.28,
+    "ort_cpu_q8_decode_tok_s_mean": 14.73,
+    "cpu_q4_llama_bench_tok_s": 24.9,
+    "qnn_to_cpu_q8_completion_ratio_mean": 0.621,
+    "prompts_at_or_above_0_70": "3/6"
+  },
+  "prefill_comparison": {
+    "context_tokens": 2048,
+    "hybrid_qnn_chunk_prefill_tok_s_range": [160, 191],
+    "cpu_q4_llama_bench_prompt_processing_tok_s": 112.6
+  },
+  "records_only_nonstandard_metrics": {
+    "cpu_q4_generated_wall_tok_s_mean": 41.94,
+    "method": "generated tokenizer count divided by whole-process generation wall time",
+    "publication_treatment": "records only; intentionally omitted from README headline tables"
+  },
+  "measurement_warning": "24.9 is a separate llama-bench decode method; prefill compares Hybrid chunk prefill with llama-bench prompt processing at ctx2048."
+}

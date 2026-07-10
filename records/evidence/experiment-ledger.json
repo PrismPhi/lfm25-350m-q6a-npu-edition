@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "experiments": [
+    {
+      "name": "V1.8b long-trace activation recalibration",
+      "pc_result": "parity passed",
+      "device_result": "QNN-only session creation failed because repeated Slice nodes remained CPU-assigned",
+      "adopted": false
+    },
+    {
+      "name": "V1.9 post-QDQ parameter unification",
+      "pc_result": "decode cosine 0.551, chunk cosine 0.798, top-1 1/8",
+      "device_result": "not transferred because the PC gate failed",
+      "adopted": false
+    },
+    {
+      "name": "V1.10 calibration-time group-max constraint",
+      "pc_result": "decode cosine 0.999904 and chunk cosine 0.999871, top-1 8/8 each",
+      "device_result": "QNN-only session creation and reload failed because repeated Slice nodes remained CPU-assigned",
+      "adopted": false
+    }
+  ],
+  "conclusion": "No further calibration-only candidate remains in the V1 ledger."
+}

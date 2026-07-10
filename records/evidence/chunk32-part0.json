@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "candidate_count": 1,
+  "chunk": 32,
+  "context_length": 2048,
+  "raw_model_sha256": "776bce99eafa9d0a536a1817c9a1a2f54681840476fd7a788cc79437db261286",
+  "qnn_only": true,
+  "epcontext_generate_tok_s": 262.19034981868714,
+  "epcontext_warm_load_tok_s": 296.3311097147603,
+  "speed_gate_minimum_tok_s": 250,
+  "cache_min_cosine": 0.30979911179386704,
+  "step0_logits_min_cosine": 0.753697932103936,
+  "generated_top1_matches": "2/48",
+  "same_subject_prompts": "6/6",
+  "functional_gate_pass": false,
+  "adopted": false,
+  "archive_sha256": "54baef6f1195c5a10e4754e6087eb8d692057e3e99197e30a6e59076fc4db47b"
+}
