@@ -6,6 +6,10 @@ An experimental prompt-to-text runner for LFM2.5-350M on the QNN HTP of QCS6490/
 
 This tree is published on [GitHub](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition). Model assets and the HF model card are published on [Hugging Face](https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition).
 
+> **Unofficial project:** This project is not an official, endorsed, affiliated, or sponsored project of Liquid AI, Qualcomm, Radxa, Microsoft, OpenAI, or Anthropic.
+>
+> **AI-assisted development disclosure:** OpenAI Codex and Anthropic Claude Code were used for research, code generation and editing, debugging, experiment organization, and documentation. A human reviewed the outputs and made the Q6A hardware-validation, adoption, and publication decisions.
+
 ## Validated Configuration
 
 | Item | Measurement | Condition |

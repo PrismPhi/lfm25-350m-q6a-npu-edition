@@ -20,6 +20,10 @@ GitHub repository: [lfm25-350m-q6a-npu-edition](https://github.com/PrismPhi/lfm2
 
 # LFM2.5-350M Q6A NPU Edition Model Card
 
+> **Unofficial model derivative:** This model distribution is not an official, endorsed, affiliated, or sponsored distribution of Liquid AI, Qualcomm, Radxa, Microsoft, OpenAI, or Anthropic.
+>
+> **AI-assisted development disclosure:** OpenAI Codex and Anthropic Claude Code were used for research, code generation and editing, debugging, experiment organization, and documentation. A human reviewed the outputs and made the Q6A hardware-validation, adoption, and publication decisions.
+
 ## Overview
 
 A QCS6490/Q6A A16W8 QDQ ONNX derivative of Liquid AI's LFM2.5-350M. The model distribution contains raw QDQ and host-side constants only. Users generate EPContext on their own device.

@@ -290,9 +290,29 @@ def audit_publication_metadata(
             errors.append(
                 f"metadata:{rel(path, root)}: HF upload sequence is incomplete"
             )
+
+    disclosure_paths = [
+        root / "README.ja.md",
+        root / "README.md",
+        root / "release" / "MODEL_CARD.ja.md",
+        root / "release" / "MODEL_CARD.md",
+        root / "NOTICE.ja.md",
+        root / "NOTICE.md",
+    ]
+    for path in disclosure_paths:
+        text = read_utf8(path, errors, f"metadata:{rel(path, root)}")
+        if text is None:
+            continue
+        unofficial = "\u975e\u516c\u5f0f" if path.name.endswith(".ja.md") else "not an official"
+        if unofficial not in text:
+            errors.append(f"metadata:{rel(path, root)}: missing unofficial notice")
+        if "OpenAI Codex" not in text or "Anthropic Claude Code" not in text:
+            errors.append(f"metadata:{rel(path, root)}: missing AI-use disclosure")
     checks["hf_model_cards"] = len(card_paths)
     checks["publication_crosslinks"] = len(card_paths) + len(readme_paths)
     checks["hf_upload_checklists"] = len(checklist_expectations)
+    checks["unofficial_disclosures"] = len(disclosure_paths)
+    checks["ai_assistance_disclosures"] = len(disclosure_paths)
 
 
 def audit_links(root: Path, errors: list[str], checks: dict[str, int]) -> None:
@@ -328,7 +348,7 @@ def private_patterns() -> list[tuple[str, re.Pattern[str]]]:
         ("device home path", re.compile(
             r"/home/(?:" + "rad" + r"xa|root)(?:/|\b)", re.I
         )),
-        ("device login name", re.compile(r"\b" + "rad" + "xa" + r"\b", re.I)),
+        ("device login reference", re.compile(r"\b" + "rad" + "xa" + r"@", re.I)),
         ("private run path", re.compile("/mnt/" + "q6a_sd", re.I)),
         ("private IPv4 address", re.compile(
             r"\b(?:10\.(?:\d{1,3}\.){2}\d{1,3}|"
