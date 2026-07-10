@@ -1,7 +1,7 @@
 ---
 license: other
 license_name: lfm-open-license-v1.0
-license_link: MODEL_LICENSE
+license_link: https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/blob/main/MODEL_LICENSE
 base_model: LiquidAI/LFM2.5-350M
 language: [ja, en]
 tags:
