@@ -18,11 +18,9 @@ from probe_p4_patha2_chunk_l2_attention import provider_counts_from_profile, qnn
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 STATE_ROOT = Path(
-    os.environ.get(
-        "LFM25_STATE_DIR",
-        Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
-        / "lfm25-350m-q6a-npu-edition",
-    )
+    os.environ.get("LFM2_5_STATE_DIR")
+    or Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
+    / "lfm2.5-350m-q6a-qcs6490-qnn-npu"
 )
 DEFAULT_CHUNK_CONTEXT = STATE_ROOT / "contexts" / "chunk" / "chunk_epcontext.onnx"
 DEFAULT_DECODE_CONTEXT = STATE_ROOT / "contexts" / "decode" / "decode_epcontext.onnx"

@@ -1,7 +1,7 @@
 ---
 license: other
 license_name: lfm-open-license-v1.0
-license_link: https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/blob/main/MODEL_LICENSE
+license_link: https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu/blob/main/MODEL_LICENSE
 base_model: LiquidAI/LFM2.5-350M
 language: [ja, en]
 tags:
@@ -16,9 +16,9 @@ tags:
 
 **English version -> [MODEL_CARD.md](MODEL_CARD.md)**
 
-GitHubリポジトリ: [lfm25-350m-q6a-npu-edition](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition)
+GitHubリポジトリ: [radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu)
 
-# LFM2.5-350M Q6A NPU Edition Model Card
+# Radxa Dragon Q6A向けLFM2.5-350M（QCS6490 QNN NPU）
 
 > **非公式モデル派生物:** 本モデル配布はLiquid AI、Qualcomm、Radxa、Microsoft、OpenAI、Anthropicの公式、承認、提携、スポンサー付き配布ではありません。
 >
@@ -48,11 +48,11 @@ QCS6490/Q6A上のローカル実験、OpenAI互換API、OpenWebUI接続を想定
 
 ## インストール
 
-[GitHubのクイックスタート](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition/blob/main/README.ja.md#クイックスタート)に、検証済みのワンコマンド導入手順があります。11個の配布資産をダウンロード・SHA-256検証し、Q6A上でQNN EPContextを生成して、QNN-onlyおよびAPIスモークテストを実行します。
+[GitHubのクイックスタート](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu/blob/main/README.ja.md#クイックスタート)に、検証済みのワンコマンド導入手順があります。11個の配布資産をダウンロード・SHA-256検証し、Q6A上でQNN EPContextを生成して、QNN-onlyおよびAPIスモークテストを実行します。
 
 ## 性能
 
-採用runnerのAPI decodeは17.00-17.60 tok/s、TTFTは0.31-1.03秒です。測定条件は[GitHubの確定構成と比較表](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition/blob/main/README.ja.md#確定構成)を参照してください。
+公開runnerのAPI decodeは17.00-17.60 tok/s、TTFTは0.31-1.03秒です。測定条件は[GitHubの確定構成と比較表](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu/blob/main/README.ja.md#確定構成)を参照してください。
 
 ## ライセンス
 

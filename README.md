@@ -1,10 +1,10 @@
 **日本語版 -> [README.ja.md](README.ja.md)**
 
-# LFM2.5-350M Q6A NPU Edition
+# LFM2.5-350M on Radxa Dragon Q6A (QCS6490 QNN NPU)
 
 An experimental prompt-to-text runner for LFM2.5-350M on the QNN HTP of QCS6490/Q6A. The CPU handles tokenization, rowwise-int8 embedding lookup, sampling, stop processing, and cache bookkeeping. QNNExecutionProvider executes chunk prefill and decode for the model body. CPU EP fallback is disabled.
 
-This tree is published on [GitHub](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition). Model assets and the HF model card are published on [Hugging Face](https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition).
+This tree is published on [GitHub](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu). Model assets and the HF model card are published on [Hugging Face](https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu).
 
 > **Unofficial project:** This project is not an official, endorsed, affiliated, or sponsored project of Liquid AI, Qualcomm, Radxa, Microsoft, OpenAI, or Anthropic.
 >
@@ -49,6 +49,8 @@ Both prefill values are measured at ctx2048, but Hybrid QNN uses the chunk graph
 - Tested: Python 3.12.3, ONNX 1.22.0, ONNX Runtime 1.27.0, tokenizers 0.23.1
 
 QNN/QAIRT shared libraries and EPContext binaries are not included.
+
+The canonical project name uses `LFM2.5`; runtime overrides use the `LFM2_5_*` prefix.
 
 ## Quick Start
 

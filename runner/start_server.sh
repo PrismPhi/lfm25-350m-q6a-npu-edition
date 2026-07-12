@@ -2,10 +2,10 @@
 set -euo pipefail
 
 RUNNER_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-STATE_DIR="${LFM25_STATE_DIR:-${XDG_DATA_HOME:-${HOME}/.local/share}/lfm25-350m-q6a-npu-edition}"
-PYTHON="${LFM25_PYTHON:-python3}"
-HOST="${LFM25_HOST:-127.0.0.1}"
-PORT="${LFM25_PORT:-18080}"
+STATE_DIR="${LFM2_5_STATE_DIR:-${XDG_DATA_HOME:-${HOME}/.local/share}/lfm2.5-350m-q6a-qcs6490-qnn-npu}"
+PYTHON="${LFM2_5_PYTHON:-python3}"
+HOST="${LFM2_5_HOST:-127.0.0.1}"
+PORT="${LFM2_5_PORT:-18080}"
 
 exec "$PYTHON" "$RUNNER_DIR/scripts/server.py" \
   --host "$HOST" \

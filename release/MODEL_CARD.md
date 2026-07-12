@@ -1,7 +1,7 @@
 ---
 license: other
 license_name: lfm-open-license-v1.0
-license_link: https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/blob/main/MODEL_LICENSE
+license_link: https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu/blob/main/MODEL_LICENSE
 base_model: LiquidAI/LFM2.5-350M
 language: [ja, en]
 tags:
@@ -16,9 +16,9 @@ tags:
 
 **日本語版 -> [MODEL_CARD.ja.md](MODEL_CARD.ja.md)**
 
-GitHub repository: [lfm25-350m-q6a-npu-edition](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition)
+GitHub repository: [radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu)
 
-# LFM2.5-350M Q6A NPU Edition Model Card
+# LFM2.5-350M on Radxa Dragon Q6A (QCS6490 QNN NPU)
 
 > **Unofficial model derivative:** This model distribution is not an official, endorsed, affiliated, or sponsored distribution of Liquid AI, Qualcomm, Radxa, Microsoft, OpenAI, or Anthropic.
 >
@@ -48,11 +48,11 @@ Local experiments, an OpenAI-compatible API, and OpenWebUI on QCS6490/Q6A. Gener
 
 ## Installation
 
-Use the tested one-command installer described in the [GitHub Quick Start](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition#quick-start). It downloads and verifies the SHA-256 of all 11 release assets, generates QNN EPContexts on the target Q6A, and runs QNN-only and API smoke tests.
+Use the tested one-command installer described in the [GitHub Quick Start](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu#quick-start). It downloads and verifies the SHA-256 of all 11 release assets, generates QNN EPContexts on the target Q6A, and runs QNN-only and API smoke tests.
 
 ## Performance
 
-The adopted runner measures 17.00-17.60 tok/s API decode and 0.31-1.03 s TTFT. See the [validated configuration and measurement conditions on GitHub](https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition#validated-configuration).
+The released runner measures 17.00-17.60 tok/s API decode and 0.31-1.03 s TTFT. See the [validated configuration and measurement conditions on GitHub](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu#validated-configuration).
 
 ## License
 

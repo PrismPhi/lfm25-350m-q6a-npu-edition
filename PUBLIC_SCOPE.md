@@ -30,8 +30,8 @@
 
 ## Publication State
 
-1. GitHub: <https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition>
-2. Hugging Face: <https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition>
+1. GitHub: <https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu>
+2. Hugging Face: <https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu>
 3. Public updates require bilingual review, automated release audit, and Q6A validation when runtime behavior changes.
 
 Later releases must not add credentials, personal environment data, or QNN/QAIRT/EPContext binaries.

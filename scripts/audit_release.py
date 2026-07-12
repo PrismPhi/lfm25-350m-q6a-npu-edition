@@ -44,7 +44,7 @@ TABLE_DELIMITER = re.compile(r"^:?-{3,}:?$")
 HF_MODEL_CARD_FRONT_MATTER = [
     "license: other",
     "license_name: lfm-open-license-v1.0",
-    "license_link: https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/blob/main/MODEL_LICENSE",
+    "license_link: https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu/blob/main/MODEL_LICENSE",
     "base_model: LiquidAI/LFM2.5-350M",
     "language: [ja, en]",
     "tags:",
@@ -57,10 +57,10 @@ HF_MODEL_CARD_FRONT_MATTER = [
     "  - quantized",
 ]
 GITHUB_REPOSITORY_URL = (
-    "https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition"
+    "https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu"
 )
 HUGGING_FACE_MODEL_URL = (
-    "https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition"
+    "https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu"
 )
 
 

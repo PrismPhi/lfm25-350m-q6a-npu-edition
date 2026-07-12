@@ -21,11 +21,11 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 RUNNER_DIR = SCRIPT_DIR.parent
 DEFAULT_STATE_DIR = (
     Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
-    / "lfm25-350m-q6a-npu-edition"
+    / "lfm2.5-350m-q6a-qcs6490-qnn-npu"
 )
 DEFAULT_MANIFEST = RUNNER_DIR / "config" / "model-assets.json"
 DEFAULT_MODEL_BASE_URL = (
-    "https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/resolve/main"
+    "https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu/resolve/main"
 )
 CHUNK_REL = Path("qdq/chunk16_a16w8_qdq.onnx")
 DECODE_REL = Path("qdq/decode_a16w8_qdq.onnx")
@@ -98,7 +98,7 @@ def acquire_assets(manifest: dict, state_dir: Path, asset_dir: Path | None, base
         else:
             raise InstallError(
                 "assets",
-                "set LFM25_MODEL_BASE_URL, pass --model-base-url, or use --asset-dir for an offline install",
+                "set LFM2_5_MODEL_BASE_URL, pass --model-base-url, or use --asset-dir for an offline install",
             )
         if not verify_file(partial, item):
             partial.unlink(missing_ok=True)
@@ -179,7 +179,10 @@ def generate_context(label: str, source: Path, chunk: int, state_dir: Path, run_
         "--skip-cold-baseline",
     ]
     output_path = run_dir / f"epcontext_{label}.log"
-    env = dict(os.environ, LFM25_STATE_DIR=str(state_dir))
+    env = dict(
+        os.environ,
+        LFM2_5_STATE_DIR=str(state_dir),
+    )
     with output_path.open("w", encoding="utf-8") as output:
         proc = subprocess.run(command, stdout=output, stderr=subprocess.STDOUT, env=env)
     if proc.returncode != 0:
@@ -260,7 +263,10 @@ def smoke_server(state_dir: Path, run_dir: Path, port: int) -> dict:
         "--total-len",
         "2048",
     ]
-    env = dict(os.environ, LFM25_STATE_DIR=str(state_dir))
+    env = dict(
+        os.environ,
+        LFM2_5_STATE_DIR=str(state_dir),
+    )
     with server_log.open("w", encoding="utf-8") as output:
         proc = subprocess.Popen(command, stdout=output, stderr=subprocess.STDOUT, env=env)
         try:
@@ -346,7 +352,10 @@ def make_parser() -> argparse.ArgumentParser:
     parser.add_argument("--asset-dir", type=Path)
     parser.add_argument(
         "--model-base-url",
-        default=os.environ.get("LFM25_MODEL_BASE_URL", DEFAULT_MODEL_BASE_URL),
+        default=(
+            os.environ.get("LFM2_5_MODEL_BASE_URL")
+            or DEFAULT_MODEL_BASE_URL
+        ),
         help="asset download base URL; defaults to the public Hugging Face model repository",
     )
     parser.add_argument("--smoke-port", type=int, default=18089)
@@ -411,7 +420,7 @@ def main() -> int:
         result["status"] = "ok"
         result["elapsed_s"] = time.monotonic() - started
         result["start_command"] = (
-            f"LFM25_STATE_DIR='{state_dir}' LFM25_PYTHON='{sys.executable}' "
+            f"LFM2_5_STATE_DIR='{state_dir}' LFM2_5_PYTHON='{sys.executable}' "
             f"'{RUNNER_DIR / 'start_server.sh'}'"
         )
         print(f"[complete] chat-ready in {result['elapsed_s']:.1f} seconds", flush=True)

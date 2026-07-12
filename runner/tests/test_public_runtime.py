@@ -56,7 +56,20 @@ class PublicRuntimeTests(unittest.TestCase):
         with patch.dict(os.environ, {}, clear=True):
             args = self.install.make_parser().parse_args([])
         self.assertEqual(args.model_base_url, self.install.DEFAULT_MODEL_BASE_URL)
-        self.assertTrue(args.model_base_url.startswith("https://huggingface.co/PrismPhi/"))
+        self.assertEqual(
+            args.model_base_url,
+            "https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu/resolve/main",
+        )
+        self.assertEqual(
+            self.install.DEFAULT_STATE_DIR.name,
+            "lfm2.5-350m-q6a-qcs6490-qnn-npu",
+        )
+
+    def test_new_model_base_url_environment_override(self):
+        override = "https://mirror.example/models"
+        with patch.dict(os.environ, {"LFM2_5_MODEL_BASE_URL": override}, clear=True):
+            args = self.install.make_parser().parse_args([])
+        self.assertEqual(args.model_base_url, override)
 
 
 if __name__ == "__main__":

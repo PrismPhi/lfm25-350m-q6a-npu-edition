@@ -26,11 +26,9 @@ import numpy as np
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 STATE_ROOT = Path(
-    os.environ.get(
-        "LFM25_STATE_DIR",
-        Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
-        / "lfm25-350m-q6a-npu-edition",
-    )
+    os.environ.get("LFM2_5_STATE_DIR")
+    or Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
+    / "lfm2.5-350m-q6a-qcs6490-qnn-npu"
 )
 MODEL_ID = "lfm2.5-350m-qnn-ctx2048"
 DEFAULT_MAX_NEW_TOKENS = 512
@@ -528,7 +526,7 @@ class QNNEngine:
         if self.decode_sess is not None:
             profiles.append(self.handoff.finish_profile(self.decode_sess, "decode"))
         result = {
-            "mode": "lfm25_q6a_openai_server",
+            "mode": "lfm2_5_q6a_openai_server",
             "fallback_disabled": True,
             "model_compute_backend": "QNNExecutionProvider / HTP",
             "chunk_session": self.chunk_session,

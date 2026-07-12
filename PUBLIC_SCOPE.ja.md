@@ -30,8 +30,8 @@
 
 ## 公開状態
 
-1. GitHub: <https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition>
-2. Hugging Face: <https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition>
+1. GitHub: <https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu>
+2. Hugging Face: <https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu>
 3. 公開更新では日英レビューと自動release監査を行い、runtime動作を変更した場合はQ6A実機検証も行う。
 
 公開後の更新でもcredential、個人環境情報、QNN/QAIRT/EPContext binaryを追加しません。

@@ -50,11 +50,9 @@ from probe_p4_patha2_full_chunk_graph import (
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 STATE_ROOT = Path(
-    os.environ.get(
-        "LFM25_STATE_DIR",
-        Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
-        / "lfm25-350m-q6a-npu-edition",
-    )
+    os.environ.get("LFM2_5_STATE_DIR")
+    or Path(os.environ.get("XDG_DATA_HOME", Path.home() / ".local" / "share"))
+    / "lfm2.5-350m-q6a-qcs6490-qnn-npu"
 )
 DEFAULT_LOG_ROOT = STATE_ROOT / "logs"
 DEFAULT_MODEL_ROOT = STATE_ROOT / "models" / "tokenizer"
