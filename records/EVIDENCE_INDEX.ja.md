@@ -7,7 +7,7 @@
 | `evidence/headline-metrics.json` | 公開API性能、CPU比較、長文比 |
 | `evidence/experiment-ledger.json` | V1.8b/V1.9/V1.10再量子化3実験 |
 | `evidence/chunk32-part0.json` | chunk32速度、QNN-only、handoff不採用 |
-| `evidence/install-validation.json` | local installと2回のpublic URL fresh/rerun検証、QNN-only smoke |
+| `evidence/install-validation.json` | local installと3回記録したpublic URL fresh/rerun検証、QNN-only smoke |
 | `../runner/config/model-assets.json` | 配布11資産のsize/SHA-256 |
 | `decisions/CHUNK32.ja.md` | chunk32判断記録（履歴ラベルPart 0） |
 

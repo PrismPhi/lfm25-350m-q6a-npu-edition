@@ -15,7 +15,7 @@ The phase names below are historical experiment identifiers retained for evidenc
 | V1.9 | rejected post-quantization range unification on PC | scale equality alone cannot preserve quality |
 | V1.10 | proved calibration-time group-max on PC | QNN partition topology remained broken |
 | Public Part 0 | proved chunk32 at 296.33 tok/s | rejected on handoff |
-| Public install | local fresh 62.2 s, public URL fresh 126.9-233.5 s, rerun 5.5-5.8 s | users must provide a QNN environment |
+| Public install | local fresh 62.2 s, public URL fresh 126.9-288.5 s, rerun 5.5-5.8 s | users must provide a QNN environment |
 
 ## Released Configuration
 

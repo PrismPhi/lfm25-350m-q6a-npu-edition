@@ -23,7 +23,7 @@ This tree is published on [GitHub](https://github.com/PrismPhi/radxa-dragon-q6a-
 | resident server RSS | 758 -> 813 MiB | before/after final API sample |
 | power | unmeasured | no world-readable telemetry; thermal proxy only |
 | fresh install | 62.2 s | Q6A; local assets; through EPContext generation and smoke |
-| public URL fresh install | 126.9-233.5 s | 2 GitHub/HF fresh-install validations; network-dependent |
+| public URL fresh install | 126.9-288.5 s | 3 recorded GitHub/HF fresh-install validations; network-dependent |
 | idempotent rerun | 5.5-5.8 s | reused 11 assets and both contexts |
 
 The low end of API prefill occurs because the first partial chunk for a short prompt uses the decode path. TTFT for the corresponding task is 0.31 s, so the actual interactive wait is 0.31 s.
