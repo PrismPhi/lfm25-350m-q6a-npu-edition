@@ -2,7 +2,7 @@
 
 # 公開実行チェックリスト
 
-初回公開はユーザーGO後に実施しました。再公開時も次の順序を維持します。
+初回公開はレビューと承認を完了して実施しました。更新公開時も次の順序を維持します。
 
 1. GitHub/Hugging Face namespaceが`PrismPhi`であることを確認する。
 2. `python3 scripts/audit_release.py --assets-dir /path/to/release-assets`がPASSする。

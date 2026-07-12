@@ -2,7 +2,7 @@
 
 # V2 Next-Project Ledger
 
-This ledger defines the next projects to begin after publication. It does not claim support in the current V1 release.
+This ledger records proposed follow-up research. V2a and V2b are track labels defined in the [glossary](../GLOSSARY.md), not claims of support in the current release.
 
 | Track | Objective | Current evidence | Completion gate |
 |---|---|---|---|
@@ -15,4 +15,4 @@ V2a is the quality track for repairing quantization boundaries and partition top
 
 ## Publication Handling
 
-At publication, register these as issues or a project. Each experiment records its reproduction command, input SHA-256, QNN profile, and adoption decision. Do not claim untested HTP generations as supported or claim that 25-30 tok/s has already been achieved.
+Track these as issues or a project when work begins. Each experiment records its reproduction command, input SHA-256, QNN profile, and release decision. Do not claim untested HTP generations as supported or claim that 25-30 tok/s has already been achieved.

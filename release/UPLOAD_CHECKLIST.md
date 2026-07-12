@@ -2,7 +2,7 @@
 
 # Publication Checklist
 
-The initial publication was performed after user GO. Keep this order for later releases.
+The initial publication completed the review and approval process. Keep this order for later releases.
 
 1. Confirm that the GitHub/Hugging Face namespace is `PrismPhi`.
 2. Pass `python3 scripts/audit_release.py --assets-dir /path/to/release-assets`.

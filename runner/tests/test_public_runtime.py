@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 SCRIPT_DIR = Path(__file__).resolve().parents[1] / "scripts"
@@ -25,6 +27,7 @@ class PublicRuntimeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.server = load_module("public_server", "server.py")
+        cls.install = load_module("public_install", "install.py")
 
     def test_chat_template_is_stable(self):
         rendered = self.server.render_chatml([{"role": "user", "content": "Hello"}])
@@ -48,6 +51,12 @@ class PublicRuntimeTests(unittest.TestCase):
         self.assertEqual(manifest["schema_version"], 1)
         self.assertEqual(len(manifest["files"]), 11)
         self.assertEqual(len({item["path"] for item in manifest["files"]}), 11)
+
+    def test_public_model_repository_is_installer_default(self):
+        with patch.dict(os.environ, {}, clear=True):
+            args = self.install.make_parser().parse_args([])
+        self.assertEqual(args.model_base_url, self.install.DEFAULT_MODEL_BASE_URL)
+        self.assertTrue(args.model_base_url.startswith("https://huggingface.co/PrismPhi/"))
 
 
 if __name__ == "__main__":

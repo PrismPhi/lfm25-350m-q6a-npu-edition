@@ -4,7 +4,7 @@
 
 ## Long-Form Quality
 
-The mean Hybrid QNN / CPU Q8 completion-length ratio is 0.621, with 3/6 prompts at or above 0.70. 3 experiments, V1.8b, V1.9, and V1.10, tested simple recalibration, post-quantization range unification, and calibration-time group-max constraints. None produced an adoptable improvement.
+The mean Hybrid QNN / CPU Q8 completion-length ratio is 0.621, with 3/6 prompts at or above 0.70. 3 historical experiments, V1.8b, V1.9, and V1.10, tested simple recalibration, post-quantization range unification, and calibration-time group-max constraints. None produced a release-quality improvement. The labels are defined in the [glossary](GLOSSARY.md).
 
 The active configuration can complete a 442-token Japanese response with a normal stop, but length is not factual quality. Verify important explanations and summaries against another oracle such as CPU Q8.
 
@@ -23,7 +23,7 @@ The active configuration can complete a 442-token Japanese response with a norma
 
 ## Context
 
-The adopted context is 2048. ctx4096 was shown to be constructible within memory, but decode I/O is too large without device-resident KV and is deferred to V2b.
+The released context is 2048. ctx4096 was shown to be constructible within memory, but decode I/O is too large without device-resident KV and is deferred to the proposed V2b research track.
 
 ## Chat Template
 

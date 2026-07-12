@@ -4,7 +4,7 @@
 
 ## 再現の2段階
 
-利用者向け再現は、配布済みA16W8 QDQからQ6A上でEPContextを生成する経路です。研究者向け再現は、公式LFM2.5-350MからPath A2/N4b graphを再構築する経路です。後者はQAIRT/operator差に敏感で、各gateを飛ばして最終graphだけを評価してはいけません。
+利用者向け再現は、配布済みA16W8 QDQからQ6A上でEPContextを生成する経路です。研究者向け再現は、公式LFM2.5-350Mから公開graphを再構築する経路です。履歴ラベルPath A2とN4bは、公式weightによるgraph再構築とexact LpNormalization書き換えを指します。詳細は[用語集](GLOSSARY.ja.md)を参照してください。研究者向け経路はQAIRT/operator差に敏感なため、full graphを評価する前に各中間合格条件を確認します。
 
 ## 利用者向け経路
 
@@ -16,7 +16,6 @@
 6. `runner/start_server.sh`で常駐serverを開始する。
 
 ```bash
-export LFM25_MODEL_BASE_URL="https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/resolve/main"
 bash runner/install.sh --python /path/to/qnn-venv/bin/python
 ```
 
@@ -28,8 +27,8 @@ bash runner/install.sh --python /path/to/qnn-venv/bin/python
 |---|---|---|
 | R0 | 公式`LiquidAI/LFM2.5-350M`と公式ONNXを取得 | tokenizer/config/model SHAを固定 |
 | R1 | operator/initializer inventoryを作る | layer数、hidden 1024、vocab 65536、cache contract一致 |
-| R2 | Path A2へ公式weightを移植 | CPU Q8 logits cosineとtop-1 |
-| R3 | RMSNormをN4b exact LpNormalization構成へ置換 | minigraph QNN-only + CPU parity |
+| R2 | 再構築graphへ公式weightを移植 | CPU Q8 logits cosineとtop-1 |
+| R3 | RMSNormをexact LpNormalization構成へ置換 | minigraph QNN-only + CPU parity |
 | R4 | attentionへSlice+Concat GQA repeat、RoPE、causal tail-maskを導入 | q/k/v official-input minigraph parity |
 | R5 | Conv/MLP/attention/final norm/lm_headをA16W8 QDQ化 | fallback無効のlayer canary |
 | R6 | chunk16/ctx2048 graphとchunk1 slim decode graphを構築 | PC static check、QNN create/load |
@@ -37,7 +36,7 @@ bash runner/install.sh --python /path/to/qnn-venv/bin/python
 | R8 | tokenizer -> prefill -> decode -> detokenize | 6 smoke、JSON、長文、profile |
 | R9 | 外部EPContext化 | warm load <=5 s、QNN-only profile |
 
-chunk/decode graph構築の公開コードは`runner/scripts/probe_p4_patha2_full_chunk_graph.py`です。採用QDQとhost資産のモデル配布stagingは次で作ります。
+chunk/decode graph構築の公開コードは`runner/scripts/probe_p4_patha2_full_chunk_graph.py`です。filenameには証跡追跡のため履歴上の実験ラベルを残しています。公開QDQとhost資産のモデル配布stagingは次で作ります。
 
 ```bash
 python3 scripts/prepare_model_release.py \
@@ -59,4 +58,4 @@ python3 scripts/prepare_model_release.py \
 
 ## 証跡
 
-公開用の数値は[証跡索引](records/EVIDENCE_INDEX.ja.md)と`records/evidence/*.json`を単一ソースとします。元の2週間分の非公開監査ツリーは個人パスや実機識別子を含むため、そのまま公開しません。
+公開用の数値は[証跡索引](records/EVIDENCE_INDEX.ja.md)と`records/evidence/*.json`を単一ソースとします。非公開の生研究記録は個人パスや実機識別子を含むため、そのまま公開しません。

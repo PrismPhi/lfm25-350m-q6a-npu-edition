@@ -4,7 +4,7 @@
 
 ## 2 Reproduction Levels
 
-The user path generates EPContexts on Q6A from distributed A16W8 QDQ models. The research path rebuilds the Path A2/N4b graph from official LFM2.5-350M. The research path is sensitive to QAIRT and operator differences; do not skip intermediate gates and judge only the final graph.
+The user path generates EPContexts on Q6A from distributed A16W8 QDQ models. The research path rebuilds the released graph from official LFM2.5-350M. Historical labels Path A2 and N4b refer to the official-weight graph reconstruction and exact LpNormalization rewrite; see the [glossary](GLOSSARY.md). The research path is sensitive to QAIRT and operator differences, so each intermediate passing condition must be checked before evaluating the full graph.
 
 ## User Path
 
@@ -16,7 +16,6 @@ The user path generates EPContexts on Q6A from distributed A16W8 QDQ models. The
 6. Start the persistent server with `runner/start_server.sh`.
 
 ```bash
-export LFM25_MODEL_BASE_URL="https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/resolve/main"
 bash runner/install.sh --python /path/to/qnn-venv/bin/python
 ```
 
@@ -28,8 +27,8 @@ Passing requires matching SHA for 11 assets; `generate_ok=true`, `load_ok=true`,
 |---|---|---|
 | R0 | acquire official `LiquidAI/LFM2.5-350M` and official ONNX | pin tokenizer/config/model SHA |
 | R1 | build operator/initializer inventory | layer count, hidden 1024, vocab 65536, cache contract match |
-| R2 | transplant official weights into Path A2 | CPU Q8 logits cosine and top-1 |
-| R3 | replace RMSNorm with N4b exact LpNormalization construction | minigraph QNN-only + CPU parity |
+| R2 | transplant official weights into the reconstructed graph | CPU Q8 logits cosine and top-1 |
+| R3 | replace RMSNorm with the exact LpNormalization construction | minigraph QNN-only + CPU parity |
 | R4 | add Slice+Concat GQA repeat, RoPE, causal tail-mask | q/k/v official-input minigraph parity |
 | R5 | apply A16W8 QDQ to Conv/MLP/attention/final norm/lm_head | layer canary with fallback disabled |
 | R6 | build chunk16/ctx2048 and chunk1 slim-decode graphs | PC static check, QNN create/load |
@@ -37,7 +36,7 @@ Passing requires matching SHA for 11 assets; `generate_ok=true`, `load_ok=true`,
 | R8 | tokenizer -> prefill -> decode -> detokenize | 6 smoke, JSON, long generation, profile |
 | R9 | externalize EPContext | warm load <=5 s, QNN-only profile |
 
-The public chunk/decode graph builder is `runner/scripts/probe_p4_patha2_full_chunk_graph.py`. Create model-distribution staging from accepted QDQ and host assets with:
+The public chunk/decode graph builder is `runner/scripts/probe_p4_patha2_full_chunk_graph.py`; the filename retains its historical experiment label for traceability. Create model-distribution staging from the released QDQ and host assets with:
 
 ```bash
 python3 scripts/prepare_model_release.py \
@@ -59,4 +58,4 @@ python3 scripts/prepare_model_release.py \
 
 ## Evidence
 
-Public numbers use the [evidence index](records/EVIDENCE_INDEX.md) and `records/evidence/*.json` as their single source. The raw 2-week private audit tree contains personal paths and device identifiers and is not published directly.
+Public numbers use the [evidence index](records/EVIDENCE_INDEX.md) and `records/evidence/*.json` as their single source. Raw private research records are not published directly because they contain personal paths and device identifiers.

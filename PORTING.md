@@ -26,7 +26,7 @@ This project was verified only on the HTP v68 stack of QCS6490. It does not clai
 - Whether a uint8 KV cache preserves the input/output contract.
 - Context-binary compatibility. Regenerate EPContext on each target device and stack.
 - VTCM, spill/fill, DDR bandwidth, and shared-memory mode.
-- Whether QAIRT/ONNX Runtime QNN version changes alter the failure routes.
+- Whether QAIRT/ONNX Runtime QNN version changes alter the known failure modes.
 
 ## Procedure
 

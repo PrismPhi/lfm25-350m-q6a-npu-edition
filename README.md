@@ -23,8 +23,8 @@ This tree is published on [GitHub](https://github.com/PrismPhi/lfm25-350m-q6a-np
 | resident server RSS | 758 -> 813 MiB | before/after final API sample |
 | power | unmeasured | no world-readable telemetry; thermal proxy only |
 | fresh install | 62.2 s | Q6A; local assets; through EPContext generation and smoke |
-| public URL fresh install | 126.9 s | GitHub clone, 11 HF assets, through EPContext generation and smoke |
-| idempotent rerun | 5.5 s | reused 11 assets and both contexts |
+| public URL fresh install | 126.9-233.5 s | 2 GitHub/HF fresh-install validations; network-dependent |
+| idempotent rerun | 5.5-5.8 s | reused 11 assets and both contexts |
 
 The low end of API prefill occurs because the first partial chunk for a short prompt uses the decode path. TTFT for the corresponding task is 0.31 s, so the actual interactive wait is 0.31 s.
 
@@ -55,7 +55,6 @@ QNN/QAIRT shared libraries and EPContext binaries are not included.
 Model assets are acquired from the public Hugging Face repository.
 
 ```bash
-export LFM25_MODEL_BASE_URL="https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/resolve/main"
 bash runner/install.sh --python /path/to/qnn-venv/bin/python
 bash runner/start_server.sh
 ```
@@ -67,7 +66,7 @@ python3 runner/scripts/client.py --prompt "日本の首都は？" --max-tokens 6
 python3 runner/scripts/client.py --prompt "日本の首都をJSONで返して" --json-object --max-tokens 64
 ```
 
-`install.sh` checks dependencies, verifies the SHA-256 of 11 assets, generates device EPContexts, runs a QNN-only canary, and tests normal and JSON responses. Errors name the failed `dependencies`, `assets`, `epcontext`, or `smoke` stage.
+`install.sh` downloads assets from the public Hugging Face repository by default, checks dependencies, verifies the SHA-256 of 11 assets, generates device EPContexts, runs a QNN-only canary, and tests normal and JSON responses. Use `--model-base-url` for a mirror or `--asset-dir` for an offline install. Errors name the failed `dependencies`, `assets`, `epcontext`, or `smoke` stage.
 
 ## OpenWebUI
 
@@ -85,8 +84,10 @@ Code is under Apache License 2.0. Derived QDQ, embedding, and RoPE assets are un
 
 ## Reading Order
 
+- [Engineering findings](FINDINGS.md)
+- [Glossary](GLOSSARY.md)
 - [Reproducibility](REPRODUCIBILITY.md)
-- [Failure routes and diagnostics](PITFALLS.md)
+- [Known failure modes and diagnostics](PITFALLS.md)
 - [Porting to other HTP generations](PORTING.md)
 - [Known limits](KNOWN_LIMITS.md)
 - [API specification](API.md)

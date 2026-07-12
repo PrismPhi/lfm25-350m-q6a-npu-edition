@@ -4,7 +4,7 @@
 
 ## 長文品質
 
-Hybrid QNN / CPU Q8のcompletion長比は平均0.621で、0.70以上は3/6 promptです。V1.8b、V1.9、V1.10の3実験で、単純な再校正、事後range統一、校正時group-max制約を試しましたが採用可能な改善にはなりませんでした。
+Hybrid QNN / CPU Q8のcompletion長比は平均0.621で、0.70以上は3/6 promptです。V1.8b、V1.9、V1.10という3件の履歴実験で、単純な再校正、事後range統一、校正時group-max制約を試しましたが、公開品質を満たす改善にはなりませんでした。ラベルの意味は[用語集](GLOSSARY.ja.md)で説明しています。
 
 現行構成は442 tokenの日本語長文を通常stopで完走できますが、長さと事実品質は同じではありません。重要な説明・要約はCPU Q8など別oracleで確認してください。
 
@@ -23,7 +23,7 @@ Hybrid QNN / CPU Q8のcompletion長比は平均0.621で、0.70以上は3/6 promp
 
 ## context
 
-採用contextは2048です。ctx4096はmemory上の生成可能性を確認しましたが、device-resident KVでない現構造ではdecode I/Oが大きく、V2bへ延期しました。
+公開contextは2048です。ctx4096はmemory上の生成可能性を確認しましたが、device-resident KVでない現構造ではdecode I/Oが大きく、研究候補V2bへ延期しました。
 
 ## chat template
 

@@ -6,10 +6,10 @@
 
 - `runner/`: installer、OpenAI互換server、CLI client、QNN runtime helper、設定、test
 - `records/`: サニタイズ済みphase summary、決定台帳、数値JSON、証跡索引
-- 日英同格のREADME、再現手順、死亡ルート、移植、制限、API、ライセンス、NOTICE
+- 日英同格のREADME、技術知見、用語集、再現手順、失敗パターン、移植、制限、API、ライセンス、NOTICE
 - `scripts/prepare_model_release.py`: QDQ/host資産staging作成
 - `scripts/audit_release.py`: 公開前監査
-- 別モデル配布: 採用済みQDQ 2本、tokenizer、rowwise-int8 embedding、RoPE cache、MODEL_LICENSE
+- 別モデル配布: 公開済みQDQ 2本、tokenizer、rowwise-int8 embedding、RoPE cache、MODEL_LICENSE
 
 ## 公開しないもの
 
@@ -32,6 +32,6 @@
 
 1. GitHub: <https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition>
 2. Hugging Face: <https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition>
-3. 日本語レビューとユーザーGO後に公開する。
+3. 公開更新では日英レビューと自動release監査を行い、runtime動作を変更した場合はQ6A実機検証も行う。
 
 公開後の更新でもcredential、個人環境情報、QNN/QAIRT/EPContext binaryを追加しません。

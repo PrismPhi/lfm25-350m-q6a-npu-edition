@@ -24,6 +24,9 @@ DEFAULT_STATE_DIR = (
     / "lfm25-350m-q6a-npu-edition"
 )
 DEFAULT_MANIFEST = RUNNER_DIR / "config" / "model-assets.json"
+DEFAULT_MODEL_BASE_URL = (
+    "https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition/resolve/main"
+)
 CHUNK_REL = Path("qdq/chunk16_a16w8_qdq.onnx")
 DECODE_REL = Path("qdq/decode_a16w8_qdq.onnx")
 
@@ -341,7 +344,11 @@ def make_parser() -> argparse.ArgumentParser:
     parser.add_argument("--state-dir", type=Path, default=DEFAULT_STATE_DIR)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--asset-dir", type=Path)
-    parser.add_argument("--model-base-url", default=os.environ.get("LFM25_MODEL_BASE_URL"))
+    parser.add_argument(
+        "--model-base-url",
+        default=os.environ.get("LFM25_MODEL_BASE_URL", DEFAULT_MODEL_BASE_URL),
+        help="asset download base URL; defaults to the public Hugging Face model repository",
+    )
     parser.add_argument("--smoke-port", type=int, default=18089)
     parser.add_argument("--force-context", action="store_true")
     return parser

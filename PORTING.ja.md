@@ -26,7 +26,7 @@
 - uint8 KV cacheが入力/出力contractを保てるか。
 - context binaryの互換性。EPContextは世代/stackごとに対象デバイス上で再生成する。
 - VTCM、spill/fill、DDR帯域、shared-memory mode。
-- QAIRT/ONNX Runtime QNNのversion差で死亡ルートが変わるか。
+- QAIRT/ONNX Runtime QNNのversion差で既知の失敗パターンが変わるか。
 
 ## 実行手順
 

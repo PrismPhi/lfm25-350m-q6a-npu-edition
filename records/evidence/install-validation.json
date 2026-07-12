@@ -33,6 +33,25 @@
     "no_sudo_or_root": true,
     "pc_archive_sha256": "63722440511def6bfa8797e15dd2832ea01075d7891bf80cc5205553ca105aec"
   },
+  "public_url_revalidation_2026_07_12": {
+    "fresh_elapsed_s": 233.45147550600007,
+    "rerun_elapsed_s": 5.848558530999981,
+    "git_commit": "d96a75112e51488410038805fd9735615b094ec2",
+    "hf_revision": "55ca1fd7f08a354dac694e88b315b9ef26ffc619",
+    "assets_installed_fresh": 11,
+    "assets_reused_rerun": 11,
+    "chunk_context_fresh": "generated",
+    "decode_context_fresh": "generated",
+    "chunk_context_rerun": "reused",
+    "decode_context_rerun": "reused",
+    "chunk_qnn_only": true,
+    "decode_qnn_only": true,
+    "normal_text": "Tokyo",
+    "json_text": "{\"answer\":\"Japan\"}",
+    "fallback_disabled": true,
+    "no_sudo_or_root": true,
+    "pc_evidence_archive_sha256": "c7ca8e48219cdb05fa024d60e4b2441c7c3906ec6be0f3770525eadc128bf404"
+  },
   "tested_stack": {
     "python": "3.12.3",
     "onnx": "1.22.0",

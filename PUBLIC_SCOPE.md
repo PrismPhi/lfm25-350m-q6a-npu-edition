@@ -6,10 +6,10 @@
 
 - `runner/`: installer, OpenAI-compatible server, CLI client, QNN runtime helpers, configuration, tests
 - `records/`: sanitized phase summary, decision ledger, numeric JSON, evidence index
-- Equal Japanese/English README, reproducibility, failure routes, porting, limits, API, license, NOTICE
+- Equal Japanese/English README, engineering findings, glossary, reproducibility, failure modes, porting, limits, API, license, and NOTICE
 - `scripts/prepare_model_release.py`: build QDQ/host asset staging
 - `scripts/audit_release.py`: pre-publication audit
-- Separate model distribution: 2 accepted QDQ files, tokenizer, rowwise-int8 embedding, RoPE cache, MODEL_LICENSE
+- Separate model distribution: 2 released QDQ files, tokenizer, rowwise-int8 embedding, RoPE cache, MODEL_LICENSE
 
 ## Not Published
 
@@ -32,6 +32,6 @@
 
 1. GitHub: <https://github.com/PrismPhi/lfm25-350m-q6a-npu-edition>
 2. Hugging Face: <https://huggingface.co/PrismPhi/lfm25-350m-q6a-npu-edition>
-3. Publish only after Japanese review and explicit user GO.
+3. Public updates require bilingual review, automated release audit, and Q6A validation when runtime behavior changes.
 
 Later releases must not add credentials, personal environment data, or QNN/QAIRT/EPContext binaries.

@@ -2,7 +2,7 @@
 
 # V2 次期プロジェクト台帳
 
-この台帳は公開後に開始する次期projectを定義します。現行V1での対応済み機能を示すものではありません。
+この台帳は今後の研究候補を記録します。V2aとV2bは[用語集](../GLOSSARY.ja.md)で定義するtrack labelで、現行releaseの対応機能を示すものではありません。
 
 | Track | 目的 | 現在の証跡 | 完了gate |
 |---|---|---|---|
@@ -15,4 +15,4 @@ V2aは量子化境界とpartition topologyを修復する品質trackです。V2b
 
 ## 公開時の扱い
 
-公開時にissueまたはprojectとして登録し、各実験は再現command、入力SHA-256、QNN profile、採否理由を残します。未検証の他HTP世代への対応や25-30 tok/sを達成済みとは表記しません。
+作業開始時にissueまたはprojectとして追跡し、各実験は再現command、入力SHA-256、QNN profile、公開判断を残します。未検証の他HTP世代への対応や25-30 tok/sを達成済みとは表記しません。
