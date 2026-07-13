@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Localhost-only OpenAI-style API backed by the ctx2048 QNN runner.
+"""Loopback-by-default OpenAI-style API backed by the ctx2048 QNN runner.
 
 OpenWebUI compatibility: passive tool metadata is accepted for normal chat,
 but this runner never executes tools or emits tool calls.
@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import gc
+import ipaddress
 import json
 import os
 import signal
@@ -700,8 +701,15 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def make_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Localhost OpenAI-style QNN server with transparent sampling controls.")
+    parser = argparse.ArgumentParser(
+        description="OpenAI-style QNN server; loopback-only unless --allow-lan is set."
+    )
     parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument(
+        "--allow-lan",
+        action="store_true",
+        help="permit binding --host to a non-loopback address (no auth/TLS; do not expose on an untrusted network)",
+    )
     parser.add_argument("--port", type=int, default=18080)
     parser.add_argument("--timestamp", default=time.strftime("%Y%m%d_%H%M%S"))
     parser.add_argument("--log-root", type=Path, default=STATE_ROOT / "logs")
@@ -717,10 +725,40 @@ def make_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def validate_bind_host(host: str, allow_lan: bool) -> None:
+    try:
+        address = ipaddress.ip_address(host)
+    except ValueError:
+        address = None
+
+    if address is not None and address.version == 6:
+        raise SystemExit("IPv6 bind hosts are not supported")
+
+    is_loopback = host == "localhost" or (address is not None and address.is_loopback)
+    if is_loopback:
+        return
+    if not allow_lan:
+        raise SystemExit(
+            "server only permits a loopback host by default; "
+            "pass --allow-lan to bind a non-loopback address"
+        )
+    print(
+        json.dumps(
+            {
+                "warning": "non_loopback_bind",
+                "host": host,
+                "detail": "no authentication or TLS is provided; do not expose on an untrusted network",
+            },
+            ensure_ascii=False,
+        ),
+        file=sys.stderr,
+        flush=True,
+    )
+
+
 def main() -> int:
     args = make_parser().parse_args()
-    if args.host not in {"127.0.0.1", "localhost", "::1"}:
-        raise SystemExit("server only permits a loopback host")
+    validate_bind_host(args.host, args.allow_lan)
     if not 1 <= args.port <= 65535:
         raise SystemExit("port must be in [1, 65535]")
     engine = None

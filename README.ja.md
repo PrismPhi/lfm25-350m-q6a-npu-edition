@@ -78,7 +78,11 @@ python3 runner/scripts/client.py --prompt "日本の首都をJSONで返して" -
 ssh -N -L 18081:127.0.0.1:18080 q6a-user@q6a-host
 ```
 
-OpenWebUIのOpenAI互換base URLを`http://host.docker.internal:18081/v1`、API keyを任意の非空文字列に設定します。LAN bindは認証/TLSを提供しないため、信頼できないネットワークでは使用しないでください。
+OpenWebUIのOpenAI互換base URLを`http://host.docker.internal:18081/v1`、API keyを任意の非空文字列に設定します。非loopbackの`--host`は`--allow-lan`を渡さない限り拒否されます。渡した場合も認証/TLSは提供されないため、信頼できないネットワークでは使用しないでください。信頼できるLANで明示的に有効化するには次を実行します。
+
+```bash
+LFM2_5_HOST=0.0.0.0 bash runner/start_server.sh --allow-lan
+```
 
 ## ライセンス
 

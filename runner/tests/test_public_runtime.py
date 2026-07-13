@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import importlib.util
+import io
 import json
 import os
 import sys
 import unittest
+from contextlib import redirect_stderr
 from pathlib import Path
 from unittest.mock import patch
 
@@ -44,6 +46,27 @@ class PublicRuntimeTests(unittest.TestCase):
         self.assertEqual(args.max_new_tokens, 32)
         self.assertEqual(args.chunk, 16)
         self.assertTrue(args.greedy)
+
+    def test_server_bind_defaults_to_loopback_only(self):
+        args = self.server.make_parser().parse_args([])
+        self.assertEqual(args.host, "127.0.0.1")
+        self.assertFalse(args.allow_lan)
+        self.server.validate_bind_host("127.0.0.2", allow_lan=False)
+        with self.assertRaisesRegex(SystemExit, "loopback host by default"):
+            self.server.validate_bind_host("0.0.0.0", allow_lan=False)
+
+    def test_server_allow_lan_emits_structured_warning(self):
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            self.server.validate_bind_host("0.0.0.0", allow_lan=True)
+        warning = json.loads(stderr.getvalue())
+        self.assertEqual(warning["warning"], "non_loopback_bind")
+        self.assertEqual(warning["host"], "0.0.0.0")
+        self.assertIn("no authentication or TLS", warning["detail"])
+
+    def test_server_rejects_unsupported_ipv6_bind(self):
+        with self.assertRaisesRegex(SystemExit, "IPv6 bind hosts are not supported"):
+            self.server.validate_bind_host("::1", allow_lan=False)
 
     def test_asset_manifest_schema(self):
         manifest_path = SCRIPT_DIR.parent / "config" / "model-assets.json"

@@ -19,4 +19,5 @@ exec "$PYTHON" "$RUNNER_DIR/scripts/server.py" \
   --v0-runner-dir "$RUNNER_DIR/scripts" \
   --chunk 16 \
   --total-len 2048 \
-  --default-profile chat
+  --default-profile chat \
+  "$@"

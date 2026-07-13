@@ -78,7 +78,11 @@ By default, the server listens only on loopback at `127.0.0.1:18080`. An SSH tun
 ssh -N -L 18081:127.0.0.1:18080 q6a-user@q6a-host
 ```
 
-Set the OpenWebUI OpenAI-compatible base URL to `http://host.docker.internal:18081/v1` and use any non-empty API key. LAN binding provides neither authentication nor TLS and must not be used on an untrusted network.
+Set the OpenWebUI OpenAI-compatible base URL to `http://host.docker.internal:18081/v1` and use any non-empty API key. A non-loopback `--host` is refused unless you pass `--allow-lan`; even then it provides neither authentication nor TLS and must not be used on an untrusted network. To opt in on a trusted LAN:
+
+```bash
+LFM2_5_HOST=0.0.0.0 bash runner/start_server.sh --allow-lan
+```
 
 ## License
 
