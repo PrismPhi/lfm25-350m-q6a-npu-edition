@@ -31,7 +31,7 @@ The server uses a limited ChatML renderer for string content with system/user/as
 
 ## JSON
 
-`response_format: {"type":"json_object"}` is a constrained mode that guarantees object syntax. It does not guarantee factual values or a schema. A free-form prompt alone does not guarantee valid JSON.
+`response_format: {"type":"json_object"}` is a constrained mode that always emits a fixed single-key object `{"answer": "<value>"}`, where the value comes from QNN logits and is capped at 96 characters. It does not support arbitrary or user-specified schemas and does not guarantee factual values. A free-form prompt alone does not guarantee valid JSON.
 
 ## Concurrency
 

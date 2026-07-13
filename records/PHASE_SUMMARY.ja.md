@@ -23,4 +23,4 @@
 
 ## 試した改善と公開しなかった理由
 
-V1のcalibration-only leverはV1.8b、V1.9、V1.10の3実験で閉じました。chunk32は速度目標を通過しましたがhandoff gateで閉じました。次の技術作業はV2aのexport/QDQ topology再構築か、V2bのdevice-resident KV runtimeです。
+V1のcalibration-only leverはV1.8b（単純な再校正）、V1.9（事後range統一）、V1.10（校正時group-max制約）の3実験で閉じました。chunk32（wide-chunk prefill実験）は速度目標を通過しましたがhandoff gateで閉じました。次の技術作業はV2aのexport/QDQ topology再構築か、V2bのdevice-resident KV runtimeです。

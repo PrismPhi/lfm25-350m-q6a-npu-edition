@@ -23,4 +23,4 @@ The released configuration is chunk16 + slim decode, ctx2048, with QNN fallback 
 
 ## What Was Tried and Why It Was Not Released
 
-The calibration-only V1 levers were closed by the 3 V1.8b, V1.9, and V1.10 experiments. Chunk32 passed its speed target but closed on the handoff gate. The next technical work is V2a export/QDQ-topology reconstruction or V2b device-resident KV runtime.
+The calibration-only V1 levers were closed by the 3 V1.8b (simple recalibration), V1.9 (post-quantization range unification), and V1.10 (calibration-time group-max constraints) experiments. Chunk32 (the wide-chunk prefill experiment) passed its speed target but closed on the handoff gate. The next technical work is V2a export/QDQ-topology reconstruction or V2b device-resident KV runtime.

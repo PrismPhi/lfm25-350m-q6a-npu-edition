@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "active_configuration": "V1.8b chunk16 + slim decode, ctx2048",
+  "active_configuration": "chunk16 + slim decode, ctx2048",
   "api_tasks": {
     "prefill_tok_s_range": [33.87, 143.53],
     "decode_tok_s_range": [17.00, 17.60],

@@ -48,7 +48,7 @@ curl http://127.0.0.1:18080/v1/chat/completions \
   -d '{"model":"lfm2.5-350m-qnn-ctx2048","messages":[{"role":"user","content":"日本の首都をJSONで返して"}],"response_format":{"type":"json_object"},"max_tokens":64}'
 ```
 
-JSON modeは固定object構造とQNN logitsから選ぶvalueを組み合わせます。responseの`qnn_metrics.json_object_valid`と`qnn_metrics.json_check`を確認してください。
+JSON modeは常に固定の単一キーobject `{"answer": "<value>"}`を返します。構造トークンは固定で、値はQNN logitsから選ばれ96文字でcapされます。任意またはユーザー指定のschemaは非対応です。responseの`qnn_metrics.json_object_valid`と`qnn_metrics.json_check`を確認してください。
 
 ## Streaming
 

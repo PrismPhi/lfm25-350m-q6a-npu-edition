@@ -48,7 +48,7 @@ curl http://127.0.0.1:18080/v1/chat/completions \
   -d '{"model":"lfm2.5-350m-qnn-ctx2048","messages":[{"role":"user","content":"日本の首都をJSONで返して"}],"response_format":{"type":"json_object"},"max_tokens":64}'
 ```
 
-JSON mode combines fixed object-structure tokens with a value selected from QNN logits. Inspect `qnn_metrics.json_object_valid` and `qnn_metrics.json_check` in the response.
+JSON mode always emits a fixed single-key object `{"answer": "<value>"}`: the structural tokens are fixed and the value is selected from QNN logits, capped at 96 characters. Arbitrary or user-specified schemas are not supported. Inspect `qnn_metrics.json_object_valid` and `qnn_metrics.json_check` in the response.
 
 ## Streaming
 
