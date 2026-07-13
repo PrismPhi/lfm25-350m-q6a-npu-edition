@@ -720,7 +720,7 @@ def make_parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = make_parser().parse_args()
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
-        raise SystemExit("V1.8b server only permits a loopback host")
+        raise SystemExit("server only permits a loopback host")
     if not 1 <= args.port <= 65535:
         raise SystemExit("port must be in [1, 65535]")
     engine = None
