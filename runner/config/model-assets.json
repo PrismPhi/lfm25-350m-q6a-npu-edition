@@ -57,8 +57,14 @@
     }
   ],
   "license": "LFM Open License v1.0",
+  "huggingface": {
+    "manifest_generated_at": "2026-07-23T00:00:00+09:00",
+    "pinned_revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1",
+    "repository": "PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu",
+    "source_revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1"
+  },
   "model_id": "lfm2.5-350m-qnn-ctx2048",
   "modified_file_notice": "QDQ ONNX, rowwise-int8 embedding and RoPE cache files are modified or mechanically transformed derivatives.",
-  "schema_version": 1,
+  "schema_version": 2,
   "source_model": "LiquidAI/LFM2.5-350M"
 }

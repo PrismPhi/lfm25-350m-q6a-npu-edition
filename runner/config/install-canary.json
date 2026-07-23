@@ -1,0 +1,12 @@
+{
+  "evidence": "records/evidence/install-canary-golden.json",
+  "expected_first_token_id": 40550,
+  "expected_subject": "Tokyo",
+  "json_max_tokens": 32,
+  "max_tokens": 8,
+  "model": "lfm2.5-350m-qnn-ctx2048",
+  "prompt": "Complete this sentence with the city name only: The capital of Japan is",
+  "schema_version": 1,
+  "seed": 2468,
+  "temperature": 0
+}

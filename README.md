@@ -25,6 +25,8 @@ This tree is published on [GitHub](https://github.com/PrismPhi/radxa-dragon-q6a-
 | fresh install | 62.2 s | Q6A; local assets; through EPContext generation and smoke |
 | public URL fresh install | 126.9-288.5 s | 3 recorded GitHub/HF fresh-install validations; network-dependent |
 | idempotent rerun | 5.5-5.8 s | reused 11 assets and both contexts |
+| runtime-contract upgrade | 68.1 s | rebuilt both contexts from the previous stamp schema |
+| runtime-contract rerun | 6.1 s | reused 11 assets and both fingerprint-matched contexts |
 
 The low end of API prefill occurs because the first partial chunk for a short prompt uses the decode path. TTFT for the corresponding task is 0.31 s, so the actual interactive wait is 0.31 s.
 
@@ -46,11 +48,28 @@ Both prefill values are measured at ctx2048, but Hybrid QNN uses the chunk graph
 - A user-provided Qualcomm QNN/QAIRT environment
 - A QNN-enabled ONNX Runtime Python environment
 - Approximately 2.5 GiB of free space
-- Tested: Python 3.12.3, ONNX 1.22.0, ONNX Runtime 1.27.0, tokenizers 0.23.1
+- Tested: Python 3.12.3, ONNX 1.22.0, ONNX Runtime 1.27.0, onnxruntime-qnn 2.3.0, tokenizers 0.23.1
 
 QNN/QAIRT shared libraries and EPContext binaries are not included.
 
 The canonical project name uses `LFM2.5`; runtime overrides use the `LFM2_5_*` prefix.
+
+## Runtime Identity
+
+| Field | Validated value |
+|---|---|
+| target | `QCS6490 / HTP v68` |
+| QNN EP | `QNNExecutionProvider` |
+| QNN EP library SHA-256 | `ebcec5c0b52cc4bb96542accd17f4a410174bfc7a44599586f17852aa9ae78ef` |
+| QNN HTP library SHA-256 | `9e1a73ed4f3e7cf3ef3199a23dfb3885b12a64edea30e607b0687b25b28e94f7` |
+| HTP v68 Stub SHA-256 | `68e4c5f932ea006efa311c6763a4b25081f11663ae70390e6a58e41142f82c9f` |
+| HTP v68 Skel SHA-256 | `1c4ef2cec89209ffb32d670cde10c3ff66733e44d34dd23c0b76f319afc5a6dd` |
+| QAIRT version | `null` because the tested package does not expose it |
+| Qualcomm QNN runtime version | `null` because the tested package does not expose it |
+
+The installer does not infer QAIRT or Qualcomm QNN runtime versions from the onnxruntime-qnn package version. It records the Python/package versions, absolute QNN library paths and hashes, target, provider options, session config, final `ADSP_LIBRARY_PATH`, chunk, and total length in `install-result.json`, each `source-stamp.json`, and server evidence. Existing `ADSP_LIBRARY_PATH` entries are preserved and deduplicated. A changed runtime identity or corrupt stamp forces EPContext regeneration instead of reuse.
+
+The default model URL is pinned to Hugging Face revision `773ff42cc383cb61ecf32eb13d1f828634fbd0e1`; `--model-base-url`, `--model-repository`, and `--model-revision` remain explicit override mechanisms.
 
 ## Quick Start
 
@@ -68,7 +87,7 @@ python3 runner/scripts/client.py --prompt "日本の首都は？" --max-tokens 6
 python3 runner/scripts/client.py --prompt "日本の首都をJSONで返して" --json-object --max-tokens 64
 ```
 
-`install.sh` downloads assets from the public Hugging Face repository by default, checks dependencies, verifies the SHA-256 of 11 assets, generates device EPContexts, runs a QNN-only canary, and tests normal and JSON responses. Use `--model-base-url` for a mirror or `--asset-dir` for an offline install. Errors name the failed `dependencies`, `assets`, `epcontext`, or `smoke` stage.
+`install.sh` downloads the pinned assets from the public Hugging Face repository by default, checks dependencies, verifies the SHA-256 of 11 assets, generates device EPContexts, and requires finite QNN-only generation, reload, and execution. Its deterministic semantic canary requires normal output containing `Tokyo`, JSON output `{"answer":"Tokyo"}`, and first token ID `40550`. Use `--model-base-url` for a mirror or `--asset-dir` for an offline install. Errors name the failed `dependencies`, `assets`, `epcontext`, or `smoke` stage.
 
 ## OpenWebUI
 

@@ -14,8 +14,12 @@
 8. 公開先の`asset-manifest.json`から11資産を再取得し、sizeとSHA-256を再検証する。
 9. `release/MODEL_CARD.md`をHugging Faceの`README.md`としてuploadする。原名の`MODEL_CARD.md`と`MODEL_CARD.ja.md`も配置する。
 10. GitHub READMEからHugging Face model card、Hugging Face model cardからGitHub repositoryへの相互リンクを確認する。
-11. 公開URLから新しいQ6A stateへ`runner/install.sh`を再実行する。
-12. fresh時間、通常応答、JSON、QNN-only profileをrelease noteへ転記する。
-13. V2a/V2bを次期projectとして登録する。
+11. 公開revisionを`runner/config/model-assets.json`へ固定し、11 asset URLをすべて解決する。
+12. 公開URLから新しいQ6A stateへ`runner/install.sh`を再実行する。
+13. install evidenceでruntime fingerprint、厳格なfinite生成/再ロード、profile後QNN-only fieldを確認する。
+14. 通常`Tokyo`、JSON `{"answer":"Tokyo"}`、first token ID `40550`を必須にし、構文only JSONを受理しない。
+15. 全公開Markdown URLと固定asset URL 11件がerrorでないHTTP結果になることを確認する。
+16. fresh時間、通常応答、JSON、QNN-only profileをrelease noteへ転記する。
+17. V2a/V2bを次期projectとして登録する。
 
 公開前レビューでは[PUBLIC_SCOPE.ja.md](../PUBLIC_SCOPE.ja.md)を基準にします。

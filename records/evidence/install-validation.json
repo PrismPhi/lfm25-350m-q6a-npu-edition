@@ -1,5 +1,6 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "historical_evidence_notice": "Entries before runtime_contract_validation_2026_07_23 used syntax-only JSON smoke checks. They remain unchanged as historical evidence and are not current semantic-canary passes.",
   "fresh_install": {
     "elapsed_s": 62.23989035499835,
     "assets_installed": 11,
@@ -77,13 +78,76 @@
     "no_sudo_or_root": true,
     "pc_evidence_archive_sha256": "bb4e90c8cf59ff952c7f0a7a3c0e5c67993b89e358aeb503954d0829061968b1"
   },
+  "runtime_contract_validation_2026_07_23": {
+    "fresh_state": false,
+    "upgrade_elapsed_s": 68.08845644199982,
+    "idempotent_rerun_elapsed_s": 6.100630492999699,
+    "final_validation_timestamp": "20260723_183920",
+    "install_result_schema_version": 2,
+    "assets_reused": 11,
+    "asset_repository": "PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu",
+    "asset_revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1",
+    "default_pinned_revision_used": true,
+    "chunk_context_upgrade": "generated",
+    "decode_context_upgrade": "generated",
+    "upgrade_regeneration_reason": "unsupported_stamp_schema",
+    "chunk_context_rerun": "reused",
+    "decode_context_rerun": "reused",
+    "rerun_reuse_reason": "identity_and_files_match",
+    "chunk_runtime_identity_sha256": "7b8cfc5ff675ecda6baa6ae39d2fbcad00531d32c0441309ac2eabacdaf7fd8b",
+    "decode_runtime_identity_sha256": "428978c4adc035b278926db11ecfc1f17da1441e421600dda5c1a2252d109064",
+    "normal_text": "Tokyo",
+    "json_text": "{\"answer\":\"Tokyo\"}",
+    "expected_first_token_id": 40550,
+    "canary_evidence_sha256": "079f500e4d1b6e2892833a952c2c9e5ad37120bd6b4245898b9e58cedb2bfb2a",
+    "canary_evidence_verified": true,
+    "first_step_top_token_ids": [
+      40550,
+      1098,
+      5802,
+      14807,
+      33167
+    ],
+    "normal_all_outputs_finite": true,
+    "json_all_outputs_finite": true,
+    "semantic_canary_passed": true,
+    "chunk_provider_counts": {
+      "QNNExecutionProvider": 2,
+      "CPUExecutionProvider": 0
+    },
+    "decode_provider_counts": {
+      "QNNExecutionProvider": 24,
+      "CPUExecutionProvider": 0
+    },
+    "qnn_only_verified_after_profile": true,
+    "shutdown_idle_before_profile": true,
+    "shutdown_engine_lock_acquired": true,
+    "shutdown_waiter_notification_tested": true,
+    "public_runtime_tests_pc": 25,
+    "public_runtime_tests_q6a": 25,
+    "request_body_logging_enabled": false,
+    "request_history_contains_body": false,
+    "pc_evidence_directory": "remote_logs/public_remediation_20260723",
+    "pc_evidence_archive": "remote_logs/public_remediation_20260723_final.tgz",
+    "pc_evidence_archive_sha256": "bfcf988907421d6caa5ff250917b8e9c7fd12375207f3e98e2f8163dd4f18c1d"
+  },
   "tested_stack": {
     "python": "3.12.3",
     "onnx": "1.22.0",
     "onnxruntime": "1.27.0",
+    "onnxruntime_qnn": "2.3.0",
     "tokenizers": "0.23.1",
     "provider": "QNNExecutionProvider / HTP",
-    "fallback_disabled": true
+    "soc": "QCS6490",
+    "htp_generation": "v68",
+    "qnn_ep_library_sha256": "ebcec5c0b52cc4bb96542accd17f4a410174bfc7a44599586f17852aa9ae78ef",
+    "qnn_htp_library_sha256": "9e1a73ed4f3e7cf3ef3199a23dfb3885b12a64edea30e607b0687b25b28e94f7",
+    "htp_v68_stub_sha256": "68e4c5f932ea006efa311c6763a4b25081f11663ae70390e6a58e41142f82c9f",
+    "htp_v68_skel_sha256": "1c4ef2cec89209ffb32d670cde10c3ff66733e44d34dd23c0b76f319afc5a6dd",
+    "qairt_version": null,
+    "qnn_runtime_version": null,
+    "runtime_version_note": "QAIRT and Qualcomm QNN runtime versions are not exposed by the tested Python package; the onnxruntime-qnn package version, absolute QNN library paths, and SHA-256 identify the runtime.",
+    "fallback_configured_disabled": true
   },
   "pc_archive_sha256": "c297c63be1b6097b6d6fda8f6abe06177d3f92bcea128be9b1db012c314b70f1"
 }

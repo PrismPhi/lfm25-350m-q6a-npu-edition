@@ -48,7 +48,11 @@ QCS6490/Q6A上のローカル実験、OpenAI互換API、OpenWebUI接続を想定
 
 ## インストール
 
-[GitHubのクイックスタート](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu/blob/main/README.ja.md#クイックスタート)に、検証済みのワンコマンド導入手順があります。11個の配布資産をダウンロード・SHA-256検証し、Q6A上でQNN EPContextを生成して、QNN-onlyおよびAPIスモークテストを実行します。
+[GitHubのクイックスタート](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu/blob/main/README.ja.md#クイックスタート)に、検証済みのワンコマンド導入手順があります。固定revision `773ff42cc383cb61ecf32eb13d1f828634fbd0e1`から11個の配布資産をダウンロードしてSHA-256検証し、Q6A上でQNN EPContextを生成し、finiteかつQNN-onlyの生成/再ロードを必須にします。決定論的API canaryでは通常`Tokyo`、JSON `{"answer":"Tokyo"}`、first token ID `40550`を要求します。
+
+## runtime互換性
+
+検証stackはQCS6490 HTP v68、ONNX Runtime `1.27.0`、onnxruntime-qnn `2.3.0`です。EPContextはdevice/runtime固有で、配布しません。installerはQNN EP/HTP/Stub/Skel hashとprovider/session optionをfingerprint化し、不一致ならcontextを再生成します。
 
 ## 性能
 

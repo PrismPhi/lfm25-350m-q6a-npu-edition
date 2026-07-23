@@ -35,7 +35,23 @@ The server uses a limited ChatML renderer for string content with system/user/as
 
 ## Concurrency
 
-The inference engine is serialized within 1 process. HTTP connections may arrive concurrently, but a lock processes 1 QNN generation at a time.
+The inference engine remains serialized within 1 process and runs 1 QNN generation at a time. The default admission limit is 4 waiting requests with a 30 s wait cap; overflow returns 429 and wait timeout/draining returns 503. Streaming uses a bounded 32-delta queue so network writes do not occur under the QNN lock.
+
+## Streaming and Shutdown
+
+Configured stop strings use a holdback buffer, so a possible multi-token/Unicode stop prefix is delayed until it is ordinary text. With no stop string, no holdback delay is added. A disconnected or write-timed-out client requests cancellation; cancellation is observed between QNN graph runs and cannot interrupt a graph run already inside the provider.
+
+SIGINT and SIGTERM enter draining state, reject new work, cancel/wait for active generation, acquire the engine lock, end profiling, release sessions, and write the final result. The default write timeout is 5 s and shutdown wait cap is 30 s.
+
+## Runtime Compatibility
+
+EPContext reuse is restricted to an exact `source-stamp.json` identity that includes ONNX Runtime/onnxruntime-qnn versions and library hashes, HTP Stub/Skel hashes, provider/session options, `QCS6490 / v68`, chunk, and total length. A mismatch or corrupt stamp causes regeneration. The tested package does not expose supported QAIRT or Qualcomm QNN runtime version APIs, so those fields are `null`; the absolute library paths and SHA-256 identify the tested runtime.
+
+The default Hugging Face revision is pinned to `773ff42cc383cb61ecf32eb13d1f828634fbd0e1`. Explicit mirror/revision overrides are supported but are outside the public default validation.
+
+## Logging
+
+Persistent request history is a bounded deque with default limit 128. By default it stores metadata only, not prompt text, generated text, or token ID lists. `--log-bodies` explicitly opts in to those bodies. Standard output request logs also remain metadata-only.
 
 ## Power and Memory
 

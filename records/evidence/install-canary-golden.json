@@ -1,0 +1,25 @@
+{
+  "captured_at": "2026-07-23T17:42:52+09:00",
+  "generated_text": "Tokyo",
+  "generated_token_ids": [
+    40550,
+    11554,
+    7
+  ],
+  "model_asset_revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1",
+  "prompt": "Complete this sentence with the city name only: The capital of Japan is",
+  "prompt_token_count": 24,
+  "qnn_only_by_profile": {
+    "chunk": true,
+    "decode": true
+  },
+  "runtime": {
+    "onnxruntime": "1.27.0",
+    "onnxruntime_qnn": "2.3.0",
+    "soc": "QCS6490",
+    "target": "HTP v68"
+  },
+  "schema_version": 1,
+  "seed": 2468,
+  "temperature": 0
+}

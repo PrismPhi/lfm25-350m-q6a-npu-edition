@@ -26,14 +26,24 @@ Historical labels in this table are defined in the [glossary](GLOSSARY.md).
 | V1.10 group-max | QNN session failure after PC pass | range repair does not fix partition topology | rebuild export/QDQ boundaries in V2a | `records/evidence/experiment-ledger.json` |
 | chunk32 | 296.33 tok/s but handoff failure | cache padding/position contract mismatch | reject and retain chunk16 | `records/evidence/chunk32-part0.json` |
 | full-graph GQA mismatch | poor q/k/v despite a correct attention minigraph | upstream hidden-state or normalization error | inject official q/k/v before changing attention weights/layout | `records/PHASE_SUMMARY.md` |
+| stale EPContext reuse | old context loads under a changed runtime | source-only stamp omits the QNN stack identity | compare `source-stamp.json` runtime fingerprint and regenerate on any mismatch | `records/evidence/install-validation.json` |
+| ADSP path overwrite | a user DSP path disappears or HTP load becomes environment-dependent | QNN registration replaces `ADSP_LIBRARY_PATH` | preserve order, remove empty/duplicate entries, and append required paths | `records/evidence/install-validation.json` |
+| compiler-only success | context exists but output is NaN/Inf or executes on CPU | generation/load/run were not one strict gate | require finite outputs, QNN count above 0, and CPU count equal to 0 after generation and reload | `records/evidence/install-validation.json` |
+| syntax-only install smoke | wrong subject passes because JSON parses | smoke checks only non-empty text/object syntax | fixed `Tokyo` semantic canary plus first token ID `40550` | `records/evidence/install-canary-golden.json` |
+| streaming stop leak | part of a stop string reaches the client | stop detection occurs after sending token deltas | hold possible prefixes until a full multi-token/Unicode stop is ruled out | `runner/tests/test_public_runtime.py` |
+| slow stream blocks inference | disconnected/slow socket retains the QNN lock | inference writes directly to the network | bounded delta queue, write timeout, and cancellation | `runner/tests/test_public_runtime.py` |
+| shutdown/profile race | `end_profiling()` runs during generation | daemon request thread outlives the engine | drain, cancel/wait, acquire the engine lock, then profile and close | `runner/tests/test_public_runtime.py` |
+| moving HF revision | an old Git commit installs different or unavailable assets | default URL uses `resolve/main` | pin revision `773ff42cc383cb61ecf32eb13d1f828634fbd0e1` and retain explicit overrides | `runner/config/model-assets.json` |
 
 ## Shortest Diagnostic Order
 
-1. Verify QNN-only create/load with a 1-operator minigraph.
-2. Verify QDQ boundaries and dtype with a layer canary.
-3. Inject official inputs to separate weight/layout from upstream state.
-4. Compare cache, position, RoPE, and tail-mask using separate taps.
-5. Compare top-1 and generated tokens in addition to logits cosine.
-6. Pass handoff parity before prompt-to-text testing.
+1. Capture the runtime fingerprint and verify the pinned asset SHA.
+2. Verify QNN-only create/load/run with a 1-operator minigraph and finite outputs.
+3. Verify QDQ boundaries and dtype with a layer canary.
+4. Inject official inputs to separate weight/layout from upstream state.
+5. Compare cache, position, RoPE, and tail-mask using separate taps.
+6. Compare top-1 and generated tokens in addition to logits cosine.
+7. Pass handoff parity before prompt-to-text testing.
+8. Run the semantic canary and post-shutdown profile gate.
 
-A generated QNN `.bin` is not success if session initialization fails. QNN success requires 3 checks: a fallback-disabled session, 1 execution, and a QNN-only profile provider count.
+A generated QNN `.bin` is not success by itself. QNN success requires session creation, graph execution, every output finite, `QNNExecutionProvider > 0`, `CPUExecutionProvider == 0`, and the same checks after context reload.

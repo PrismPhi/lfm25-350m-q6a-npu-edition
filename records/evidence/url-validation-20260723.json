@@ -1,0 +1,98 @@
+{
+  "all_ok": true,
+  "checked_at": "2026-07-23",
+  "external_links": [
+    {
+      "http_status": 200,
+      "url": "https://docs.liquid.ai/lfm/help/model-license"
+    },
+    {
+      "http_status": 200,
+      "url": "https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu"
+    },
+    {
+      "http_status": 200,
+      "url": "https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu#quick-start"
+    },
+    {
+      "http_status": 200,
+      "url": "https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu#validated-configuration"
+    },
+    {
+      "http_status": 200,
+      "url": "https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu/blob/main/README.ja.md#クイックスタート"
+    },
+    {
+      "http_status": 200,
+      "url": "https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu/blob/main/README.ja.md#確定構成"
+    },
+    {
+      "http_status": 200,
+      "url": "https://huggingface.co/LiquidAI/LFM2.5-350M"
+    },
+    {
+      "http_status": 200,
+      "url": "https://huggingface.co/LiquidAI/LFM2.5-350M/blob/main/LICENSE"
+    },
+    {
+      "http_status": 200,
+      "url": "https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu"
+    },
+    {
+      "http_status": 200,
+      "url": "https://huggingface.co/PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu/blob/main/MODEL_LICENSE"
+    }
+  ],
+  "external_links_checked": 10,
+  "method": "curl with redirect following; HEAD for pinned assets",
+  "pinned_assets": [
+    {
+      "http_status": 200,
+      "path": "MODEL_LICENSE"
+    },
+    {
+      "http_status": 200,
+      "path": "host/embedding_int8_rowwise/metadata.json"
+    },
+    {
+      "http_status": 200,
+      "path": "host/embedding_int8_rowwise/model_embed_tokens_weight_rowwise_int8.npy"
+    },
+    {
+      "http_status": 200,
+      "path": "host/embedding_int8_rowwise/model_embed_tokens_weight_rowwise_scale.npy"
+    },
+    {
+      "http_status": 200,
+      "path": "host/rope_cache.npz"
+    },
+    {
+      "http_status": 200,
+      "path": "qdq/chunk16_a16w8_qdq.onnx"
+    },
+    {
+      "http_status": 200,
+      "path": "qdq/decode_a16w8_qdq.onnx"
+    },
+    {
+      "http_status": 200,
+      "path": "tokenizer/chat_template.jinja"
+    },
+    {
+      "http_status": 200,
+      "path": "tokenizer/generation_config.json"
+    },
+    {
+      "http_status": 200,
+      "path": "tokenizer/tokenizer.json"
+    },
+    {
+      "http_status": 200,
+      "path": "tokenizer/tokenizer_config.json"
+    }
+  ],
+  "pinned_assets_checked": 11,
+  "repository": "PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu",
+  "revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1",
+  "schema_version": 1
+}

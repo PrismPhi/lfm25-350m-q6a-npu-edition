@@ -48,7 +48,11 @@ Local experiments, an OpenAI-compatible API, and OpenWebUI on QCS6490/Q6A. Gener
 
 ## Installation
 
-Use the tested one-command installer described in the [GitHub Quick Start](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu#quick-start). It downloads and verifies the SHA-256 of all 11 release assets, generates QNN EPContexts on the target Q6A, and runs QNN-only and API smoke tests.
+Use the tested one-command installer described in the [GitHub Quick Start](https://github.com/PrismPhi/radxa-dragon-q6a-qcs6490-lfm2.5-350m-qnn-npu#quick-start). It downloads all 11 assets from pinned revision `773ff42cc383cb61ecf32eb13d1f828634fbd0e1`, verifies SHA-256, generates QNN EPContexts on the target Q6A, and requires finite QNN-only generation/reload. Its deterministic API canary requires normal `Tokyo`, JSON `{"answer":"Tokyo"}`, and first token ID `40550`.
+
+## Runtime Compatibility
+
+The tested stack is QCS6490 HTP v68, ONNX Runtime `1.27.0`, and onnxruntime-qnn `2.3.0`. EPContext is device/runtime-specific and is not distributed. The installer fingerprints QNN EP/HTP/Stub/Skel hashes and provider/session options; any mismatch regenerates the context.
 
 ## Performance
 

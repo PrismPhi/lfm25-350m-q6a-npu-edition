@@ -14,8 +14,12 @@ The initial publication completed the review and approval process. Keep this ord
 8. Re-download the 11 assets from the published `asset-manifest.json` and re-verify size and SHA-256.
 9. Upload `release/MODEL_CARD.md` as the Hugging Face `README.md`. Also retain `MODEL_CARD.md` and `MODEL_CARD.ja.md` under their original names.
 10. Verify the reciprocal link from GitHub README to the Hugging Face model card and from the Hugging Face model card to the GitHub repository.
-11. Re-run `runner/install.sh` into a new Q6A state from the public URL.
-12. Copy fresh time, normal response, JSON, and QNN-only profile into the release note.
-13. Register V2a/V2b as the next project.
+11. Pin the published revision in `runner/config/model-assets.json` and resolve all 11 asset URLs.
+12. Re-run `runner/install.sh` into a new Q6A state from the public URL.
+13. Confirm the runtime fingerprint, strict finite generation/reload, and post-profile QNN-only fields in install evidence.
+14. Require normal `Tokyo`, JSON `{"answer":"Tokyo"}`, and first token ID `40550`; do not accept syntax-only JSON.
+15. Check every public Markdown URL and all 11 pinned asset URLs for a non-error HTTP result.
+16. Copy fresh time, normal response, JSON, and QNN-only profile into the release note.
+17. Register V2a/V2b as the next project.
 
 Use [PUBLIC_SCOPE.md](../PUBLIC_SCOPE.md) as the publication-review baseline.

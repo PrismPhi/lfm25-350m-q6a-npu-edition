@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 import onnx
 import onnxruntime as ort
+from runtime_contract import configure_qnn_environment
 from onnx import TensorProto, helper, numpy_helper
 
 from probe_p4_patha2_chunk_mlp import (
@@ -193,7 +194,7 @@ def run_cpu_parity(chunk_model: Path, one_model: Path, chunk: int, seed: int):
 def qnn_register():
     import onnxruntime_qnn as oq
 
-    os.environ["ADSP_LIBRARY_PATH"] = f"{Path(oq.get_library_path()).parent};/usr/lib/dsp/cdsp;/usr/lib/dsp/adsp;/dsp"
+    configure_qnn_environment(oq)
     try:
         ort.register_execution_provider_library(oq.get_ep_name(), oq.get_library_path())
         register_status = "registered"

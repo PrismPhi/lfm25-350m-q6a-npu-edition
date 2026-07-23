@@ -13,6 +13,7 @@ from pathlib import Path
 import numpy as np
 import onnx
 import onnxruntime as ort
+from runtime_contract import configure_qnn_environment
 from onnx import numpy_helper
 from tokenizers import Tokenizer
 
@@ -184,7 +185,7 @@ def apply_position_feeds(feed, input_specs, position: int, args, rope_context):
 def build_session(model_path: Path, log_dir: Path, log_severity: int, keep_profile: bool, provider_options_extra=None):
     import onnxruntime_qnn as oq
 
-    os.environ["ADSP_LIBRARY_PATH"] = f"{Path(oq.get_library_path()).parent};/usr/lib/dsp/cdsp;/usr/lib/dsp/adsp;/dsp"
+    configure_qnn_environment(oq)
     try:
         ort.register_execution_provider_library(oq.get_ep_name(), oq.get_library_path())
         register_status = "registered"
@@ -430,7 +431,7 @@ def official_stop_token_ids(tokenizer, explicit):
 
 
 def has_mojibake(text: str):
-    return any(ch in text for ch in ["�", "繧", "縺", "荳", "譁"])
+    return any(ch in text for ch in ["\ufffd", "繧", "縺", "荳", "譁"])
 
 
 def related_keywords(name, generated_text):
