@@ -129,7 +129,42 @@
     "request_history_contains_body": false,
     "pc_evidence_directory": "remote_logs/public_remediation_20260723",
     "pc_evidence_archive": "remote_logs/public_remediation_20260723_final.tgz",
-    "pc_evidence_archive_sha256": "bfcf988907421d6caa5ff250917b8e9c7fd12375207f3e98e2f8163dd4f18c1d"
+    "pc_evidence_archive_sha256": "1b6f8a03fa029b9c91096fd6d90c5ebca7c512d80fdc2c362e0b27c54e55f632"
+  },
+  "public_source_revalidation_2026_07_23": {
+    "github_commit": "625dcbbe3593ab8eb9d009d11195d5497d74aa21",
+    "timestamp": "20260723_184646",
+    "elapsed_s": 6.304490946000442,
+    "fresh_state": false,
+    "validation_scope": "Fresh public source clone plus existing-state verification of all 11 asset SHA-256 values, fingerprint-matched EPContext reuse, deterministic semantic canary, finite outputs, and shutdown profiles. A duplicate clean-state model download was not performed because of Q6A free-space safety.",
+    "public_install_script_unmodified": true,
+    "install_script_bash_syntax_ok": true,
+    "public_runtime_tests_q6a": 25,
+    "assets_reused": 11,
+    "asset_revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1",
+    "default_pinned_revision_used": true,
+    "chunk_context_status": "reused",
+    "decode_context_status": "reused",
+    "context_reuse_reason": "identity_and_files_match",
+    "normal_text": "Tokyo",
+    "json_text": "{\"answer\":\"Tokyo\"}",
+    "first_token_id": 40550,
+    "normal_all_outputs_finite": true,
+    "json_all_outputs_finite": true,
+    "semantic_canary_passed": true,
+    "chunk_provider_counts": {
+      "QNNExecutionProvider": 2,
+      "CPUExecutionProvider": 0
+    },
+    "decode_provider_counts": {
+      "QNNExecutionProvider": 24,
+      "CPUExecutionProvider": 0
+    },
+    "qnn_only_verified_after_profile": true,
+    "shutdown_idle_before_profile": true,
+    "shutdown_engine_lock_acquired": true,
+    "qairt_version": null,
+    "qnn_runtime_version": null
   },
   "tested_stack": {
     "python": "3.12.3",

@@ -44,7 +44,13 @@
     }
   ],
   "external_links_checked": 10,
-  "method": "curl with redirect following; HEAD for pinned assets",
+  "github_source_commit": "625dcbbe3593ab8eb9d009d11195d5497d74aa21",
+  "huggingface_model_card_commit": "e553db75828931a1ef0e463d3a2b828ab686f28f",
+  "method": "curl/requests with redirect following; HEAD for pinned assets; exact byte comparison for selected GitHub and Hugging Face files",
+  "post_publish_exact_file_matches": {
+    "github": 5,
+    "huggingface_model_cards": 3
+  },
   "pinned_assets": [
     {
       "http_status": 200,
@@ -93,6 +99,7 @@
   ],
   "pinned_assets_checked": 11,
   "repository": "PrismPhi/lfm2.5-350m-q6a-qcs6490-qnn-npu",
+  "reciprocal_links_ok": true,
   "revision": "773ff42cc383cb61ecf32eb13d1f828634fbd0e1",
   "schema_version": 1
 }
