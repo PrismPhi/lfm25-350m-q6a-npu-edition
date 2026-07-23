@@ -34,6 +34,60 @@ def load_module(name: str, filename: str):
     return module
 
 
+class StreamTestEngine:
+    def __init__(self, mode: str):
+        self.mode = mode
+        self.args = argparse.Namespace(
+            client_write_timeout_s=1.0,
+            stream_queue_size=2,
+        )
+        self.started = threading.Event()
+        self.released = threading.Event()
+        self.recorded = threading.Event()
+        self.cancel_event = None
+
+    def prepare_request(self, request):
+        return {
+            "request": request,
+            "request_id": request.get("_request_id"),
+        }
+
+    def acquire_generation(self, cancel_event):
+        self.cancel_event = cancel_event
+
+    def generate_prepared(self, prepared, on_token, cancel_event):
+        self.started.set()
+        if self.mode == "wait_for_cancel":
+            if not cancel_event.wait(2):
+                raise RuntimeError("test cancellation was not requested")
+            raise RuntimeError("synthetic cancellation")
+        if self.mode == "cancel_without_terminal":
+            cancel_event.set()
+            raise RuntimeError("synthetic cancellation")
+        if self.mode == "runtime_error":
+            raise RuntimeError("synthetic QNN failure")
+        on_token("hello", True)
+        return {
+            "prompt_token_count": 1,
+            "completion_tokens": 1,
+            "requested_max_tokens": 1,
+            "finish_reason": "stop",
+            "sampling_profile": "chat",
+            "eos_suppressed_steps": 0,
+            "logit_bias": {},
+        }
+
+    def record_failure(self, prepared, exc):
+        self.recorded.set()
+
+    def release_generation(self, cancel_event, success):
+        self.released.set()
+
+    def begin_shutdown(self):
+        if self.cancel_event is not None:
+            self.cancel_event.set()
+
+
 class PublicRuntimeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -534,35 +588,101 @@ class PublicRuntimeTests(unittest.TestCase):
             api.server_close()
             thread.join(timeout=2)
 
-    def test_post_header_generation_error_uses_sse_error_event(self):
-        class FailingEngine:
-            def __init__(self):
-                self.args = argparse.Namespace(
-                    client_write_timeout_s=1.0,
-                    stream_queue_size=2,
+    def test_active_stream_shutdown_finishes_handler_and_server(self):
+        engine = StreamTestEngine("wait_for_cancel")
+        api = self.server.APIServer(("127.0.0.1", 0), self.server.Handler, engine)
+        thread = threading.Thread(
+            target=lambda: api.serve_forever(poll_interval=0.01),
+            daemon=False,
+        )
+        thread.start()
+        connection = http.client.HTTPConnection("127.0.0.1", api.server_port, timeout=2)
+        try:
+            connection.request(
+                "POST",
+                "/v1/chat/completions",
+                body=json.dumps({"stream": True}),
+                headers={"Content-Type": "application/json"},
+            )
+            response = connection.getresponse()
+            self.assertEqual(response.status, 200)
+            self.assertTrue(engine.started.wait(1))
+
+            started = time.monotonic()
+            engine.begin_shutdown()
+            api.shutdown()
+            api.server_close()
+            thread.join(timeout=1)
+            elapsed = time.monotonic() - started
+
+            self.assertFalse(thread.is_alive())
+            self.assertTrue(engine.released.wait(1))
+            self.assertLess(elapsed, 1.5)
+            self.assertNotIn("HTTP/1.1", response.read().decode("utf-8"))
+        finally:
+            connection.close()
+            if thread.is_alive():
+                api.shutdown()
+                api.server_close()
+                thread.join(timeout=2)
+
+    def test_cancelled_stream_without_terminal_item_ends_consumer(self):
+        engine = StreamTestEngine("cancel_without_terminal")
+        api = self.server.APIServer(("127.0.0.1", 0), self.server.Handler, engine)
+        thread = threading.Thread(target=api.serve_forever, daemon=False)
+        thread.start()
+        try:
+            connection = http.client.HTTPConnection("127.0.0.1", api.server_port, timeout=2)
+            started = time.monotonic()
+            connection.request(
+                "POST",
+                "/v1/chat/completions",
+                body=json.dumps({"stream": True}),
+                headers={"Content-Type": "application/json"},
+            )
+            response = connection.getresponse()
+            body = response.read().decode("utf-8")
+            self.assertEqual(response.status, 200)
+            self.assertTrue(engine.released.wait(1))
+            self.assertLess(time.monotonic() - started, 1.5)
+            self.assertNotIn("HTTP/1.1", body)
+            self.assertNotIn("data: [DONE]", body)
+            connection.close()
+        finally:
+            api.shutdown()
+            api.server_close()
+            thread.join(timeout=2)
+
+    def test_normal_stream_completes_when_terminal_queue_is_full(self):
+        engine = StreamTestEngine("success")
+        api = self.server.APIServer(("127.0.0.1", 0), self.server.Handler, engine)
+        thread = threading.Thread(target=api.serve_forever, daemon=False)
+        thread.start()
+        try:
+            connection = http.client.HTTPConnection("127.0.0.1", api.server_port, timeout=2)
+            with patch.object(self.server.queue.Queue, "put_nowait", side_effect=self.server.queue.Full):
+                connection.request(
+                    "POST",
+                    "/v1/chat/completions",
+                    body=json.dumps({"stream": True}),
+                    headers={"Content-Type": "application/json"},
                 )
-                self.released = threading.Event()
-                self.recorded = threading.Event()
+                response = connection.getresponse()
+                body = response.read().decode("utf-8")
+            self.assertEqual(response.status, 200)
+            self.assertIn('"content":"hello"', body)
+            self.assertIn('"finish_reason":"stop"', body)
+            self.assertIn("data: [DONE]", body)
+            self.assertNotIn("event: error", body)
+            self.assertTrue(engine.released.wait(1))
+            connection.close()
+        finally:
+            api.shutdown()
+            api.server_close()
+            thread.join(timeout=2)
 
-            def prepare_request(self, request):
-                return {
-                    "request": request,
-                    "request_id": request.get("_request_id"),
-                }
-
-            def acquire_generation(self, cancel_event):
-                return None
-
-            def generate_prepared(self, prepared, on_token, cancel_event):
-                raise RuntimeError("synthetic QNN failure")
-
-            def record_failure(self, prepared, exc):
-                self.recorded.set()
-
-            def release_generation(self, cancel_event, success):
-                self.released.set()
-
-        engine = FailingEngine()
+    def test_post_header_generation_error_uses_sse_error_event(self):
+        engine = StreamTestEngine("runtime_error")
         api = self.server.APIServer(("127.0.0.1", 0), self.server.Handler, engine)
         thread = threading.Thread(target=api.serve_forever, daemon=False)
         thread.start()

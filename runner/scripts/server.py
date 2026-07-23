@@ -1124,6 +1124,7 @@ class Handler(BaseHTTPRequestHandler):
         sent_role = False
         stream_queue = queue.Queue(maxsize=self.server.engine.args.stream_queue_size)
         done_marker = object()
+        worker_done = threading.Event()
 
         def publish(kind: str, value) -> None:
             while not cancel_event.is_set():
@@ -1167,15 +1168,17 @@ class Handler(BaseHTTPRequestHandler):
                     except GenerationCancelled:
                         pass
             finally:
-                self.server.engine.release_generation(cancel_event, success)
-                if not cancel_event.is_set():
-                    while True:
-                        try:
-                            stream_queue.put(("done", done_marker), timeout=0.1)
-                            break
-                        except queue.Full:
-                            if cancel_event.is_set():
-                                break
+                try:
+                    self.server.engine.release_generation(cancel_event, success)
+                finally:
+                    try:
+                        if not cancel_event.is_set():
+                            try:
+                                stream_queue.put_nowait(("done", done_marker))
+                            except queue.Full:
+                                pass
+                    finally:
+                        worker_done.set()
 
         worker = threading.Thread(
             target=generation_worker,
@@ -1185,7 +1188,17 @@ class Handler(BaseHTTPRequestHandler):
         worker.start()
         try:
             while True:
-                kind, value = stream_queue.get()
+                if cancel_event.is_set() and worker_done.is_set():
+                    break
+                try:
+                    kind, value = stream_queue.get(timeout=0.1)
+                except queue.Empty:
+                    if not worker_done.is_set():
+                        continue
+                    if not cancel_event.is_set():
+                        self.wfile.write(b"data: [DONE]\n\n")
+                        self.wfile.flush()
+                    break
                 if kind == "token":
                     delta = {"content": value}
                     if not sent_role:
